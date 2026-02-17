@@ -43,8 +43,8 @@ export default function TestimonialsSection() {
         <div className="w-full relative py-16 px-4 sm:px-6 lg:px-8 bg-cover bg-center overflow-hidden"
             style={{ backgroundImage: `url(${bg4})` }}>
 
-            {/* Green Overlay */}
-            <div className="absolute inset-0 bg-[#00A63E]/20"></div>
+            {/* Green Overlay Gradient */}
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0D542B]/60 to-[#00A63E]/20"></div>
 
             <div className="max-w-7xl mx-auto relative z-10">
                 {/* Header */}

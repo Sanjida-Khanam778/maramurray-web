@@ -3,18 +3,22 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import logo from "../../assets/images/logo.png";
+import { Link, useLocation } from "react-router-dom";
 export default function Navbar() {
+  const location = useLocation();
   const [searchValue, setSearchValue] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { label: "Home", href: "#" },
-    { label: "About", href: "#" },
-    { label: "Contact", href: "#" },
+    { label: "Home", href: "/" },
+    { label: "About", href: "/about" },
+    { label: "Contact", href: "/contact" },
   ];
 
   return (
-    <nav className="w-full bg-[#E7E9DD]/60 backdrop-blur-md z-50 rounded-b-full">
+    <nav className={`w-full z-50 bg-[#E7E9DD]/60 backdrop-blur-md rounded-b-full ${location.pathname === "/"
+      ? ""
+      : "absolute top-0 left-0"}`}>
       <div className="w-11/12 mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex items-center justify-between gap-4">
           {/* Logo */}
@@ -25,13 +29,13 @@ export default function Navbar() {
           {/* Desktop Navigation Links */}
           <div className="hidden lg:flex items-center gap-4 xl:gap-16">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.label}
-                href={link.href}
+                to={link.href}
                 className="font-bold transition-colors"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -60,18 +64,18 @@ export default function Navbar() {
         {mobileMenuOpen && (
           <div className="lg:hidden mt-4 pb-4 border-t border-gray-200 pt-4">
 
- 
+
             {/* Mobile Navigation Links */}
             <div className="flex flex-col gap-3">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.label}
-                  href={link.href}
+                  to={link.href}
                   className="text-gray-700 hover:text-gray-900 font-medium transition-colors py-2 px-2"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
             </div>
           </div>

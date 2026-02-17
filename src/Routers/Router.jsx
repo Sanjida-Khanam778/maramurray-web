@@ -1,20 +1,38 @@
 import { createBrowserRouter } from "react-router-dom";
 import Dashboard from "../Layouts/Dashboard";
 import Home from "../Pages/Home/Home";
+import MainLayout from "../Layouts/MainLayout";
+import About from "../Pages/About/About";
+import ContactSection from "../Pages/ContactSection/ContactSection";
+import PrivacyPolicy from "../Pages/PrivacyPolicy/PrivacyPolicy";
+import TermsConditions from "../Pages/TermsConditions/TermsConditions";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <MainLayout />,
     errorElement: <h1>404</h1>,
+
     children: [
       {
         path: "/",
-        element: <h1>Home</h1>,
+        element: <Home />,
       },
       {
         path: "/about",
-        element: <h1>Home</h1>,
+        element: <About />,
+      },
+      {
+        path: "/contact",
+        element: <ContactSection />,
+      },
+      {
+        path: "/privacy-policy",
+        element: <PrivacyPolicy />,
+      },
+      {
+        path: "/terms-conditions",
+        element: <TermsConditions />,
       },
     ],
   },

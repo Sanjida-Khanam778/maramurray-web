@@ -1,4 +1,3 @@
-import React from 'react'
 import Banner from '../../components/Banner/Banner'
 import HowItWorks from '../../components/HowItWorks/HowItWorks'
 import ChooseYourPath from '../../components/ChooseYourPath/ChooseYourPath'
@@ -7,7 +6,6 @@ import GardenTips from '../../components/GardenTips/GardenTips'
 import GetInspiredSection from '../../components/GetInspiredSection/GetInspiredSection'
 import TestimonialsSection from '../../components/TestimonialsSection/TestimonialsSection'
 import VideoTutorialSection from '../../components/VideoTutorialSection/VideoTutorialSection'
-import Footer from '../../components/Footer/Footer'
 
 export default function Home() {
   return (
@@ -20,7 +18,6 @@ export default function Home() {
       <GetInspiredSection />
       <TestimonialsSection />
       <VideoTutorialSection />
-      <Footer />
     </div>
   )
 }

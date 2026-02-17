@@ -1,11 +1,12 @@
 import React from 'react';
 import footer from '../../assets/images/footerBG.png';
 import logo from '../../assets/images/logo.png';
+import { Link } from 'react-router-dom';
 export default function Footer() {
   const quickLinks = [
-    { name: 'Home', href: '#' },
-    { name: 'About', href: '#' },
-  
+    { name: 'Home', href: '/' },
+    { name: 'About', href: '/about' },
+    { name: 'Contact', href: '/contact' },
   ];
 
   return (
@@ -26,12 +27,12 @@ export default function Footer() {
             <ul className="space-y-3 font-semibold">
               {quickLinks.map((link, index) => (
                 <li key={index}>
-                  <a
-                    href={link.href}
+                  <Link
+                    to={link.href}
                     className=" transition-colors duration-200 inline-block"
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -88,18 +89,18 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm font-semibold">
           <p>© 2022 PlantLove. All rights reserved.</p>
           <div className="flex gap-6">
-            <a
-              href="#"
+            <Link
+              to="/terms-conditions"
               className="transition-colors duration-200"
             >
               Terms & Condition
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to="/privacy-policy"
               className="transition-colors duration-200"
             >
               Privacy Policy
-            </a>
+            </Link>
           </div>
         </div>
       </div>
