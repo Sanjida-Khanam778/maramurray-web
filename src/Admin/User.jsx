@@ -236,11 +236,11 @@ export default function UsersManagement() {
           </div>
 
           {/* ── Users Table ── */}
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm relative">
             <table className="w-full">
               <thead className="bg-[#F5F3ED] border-b border-gray-100">
                 <tr>
-                  <th className="text-left px-6 py-4 text-xs font-semibold text-gray-600 uppercase tracking-wide">
+                  <th className="text-left px-6 py-4 text-xs font-semibold text-gray-600 uppercase tracking-wide rounded-tl-2xl">
                     User
                   </th>
                   <th className="text-left px-6 py-4 text-xs font-semibold text-gray-600 uppercase tracking-wide">
@@ -255,18 +255,22 @@ export default function UsersManagement() {
                   <th className="text-left px-6 py-4 text-xs font-semibold text-gray-600 uppercase tracking-wide">
                     Joined
                   </th>
-                  <th className="text-left px-6 py-4 text-xs font-semibold text-gray-600 uppercase tracking-wide">
+                  <th className="text-left px-6 py-4 text-xs font-semibold text-gray-600 uppercase tracking-wide rounded-tr-2xl">
                     Actions
                   </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {filteredUsers.map((user) => (
+                {filteredUsers.map((user, index) => (
                   <tr
                     key={user.id}
-                    className="hover:bg-gray-50 transition-colors"
+                    className={`hover:bg-gray-50 transition-colors ${index === filteredUsers.length - 1 ? "rounded-b-2xl" : ""
+                      }`}
                   >
-                    <td className="px-6 py-4">
+                    <td
+                      className={`px-6 py-4 ${index === filteredUsers.length - 1 ? "rounded-bl-2xl" : ""
+                        }`}
+                    >
                       <div className="flex items-center gap-3">
                         <img
                           src={user.avatar}
@@ -283,11 +287,10 @@ export default function UsersManagement() {
                     </td>
                     <td className="px-6 py-4">
                       <span
-                        className={`inline-block px-3 py-1 text-xs font-semibold rounded-full ${
-                          user.status === "Active"
-                            ? "bg-[#DCFCE7] text-[#008236]"
-                            : "bg-[#F3F4F6] text-[#364153]"
-                        }`}
+                        className={`inline-block px-3 py-1 text-xs font-semibold rounded-full ${user.status === "Active"
+                          ? "bg-[#DCFCE7] text-[#008236]"
+                          : "bg-[#F3F4F6] text-[#364153]"
+                          }`}
                       >
                         {user.status}
                       </span>
@@ -301,7 +304,10 @@ export default function UsersManagement() {
                     <td className="px-6 py-4 text-sm text-gray-500">
                       {user.joined}
                     </td>
-                    <td className="px-6 py-4 relative">
+                    <td
+                      className={`px-6 py-4 relative ${index === filteredUsers.length - 1 ? "rounded-br-2xl" : ""
+                        }`}
+                    >
                       <button
                         onClick={() =>
                           setOpenDropdown(
@@ -324,7 +330,7 @@ export default function UsersManagement() {
                       </button>
 
                       {openDropdown === user.id && (
-                        <div className="absolute right-0 top-12 z-20 bg-white rounded-xl shadow-xl border border-gray-100 py-1 w-44">
+                        <div className="absolute right-0 top-12 z-[99999] bg-white rounded-xl shadow-xl border border-gray-100 py-1 w-44">
                           <button
                             onClick={() => {
                               setSelectedUser(user);
@@ -614,11 +620,10 @@ export default function UsersManagement() {
                 <div className="bg-gray-50 rounded-lg p-4">
                   <p className="text-xs text-gray-500 mb-1">Status</p>
                   <span
-                    className={`inline-block px-3 py-1 text-xs font-semibold rounded-full ${
-                      selectedUser.status === "Active"
-                        ? "bg-green-100 text-green-700"
-                        : "bg-gray-200 text-gray-600"
-                    }`}
+                    className={`inline-block px-3 py-1 text-xs font-semibold rounded-full ${selectedUser.status === "Active"
+                      ? "bg-green-100 text-green-700"
+                      : "bg-gray-200 text-gray-600"
+                      }`}
                   >
                     {selectedUser.status}
                   </span>
