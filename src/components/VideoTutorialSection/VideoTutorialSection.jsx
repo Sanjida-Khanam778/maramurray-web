@@ -79,10 +79,11 @@ export default function VideoTutorialSection() {
                         <div className="relative w-full h-[500px] bg-black">
                             <iframe
                                 className="w-full h-full"
-                                src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
-                                title="Garden Tutorial Video"
+                                src="https://www.youtube.com/embed/z2Xs_x8-uI8?si=-FOJvOYA8BflxEUE"
+                                title="YouTube video player"
                                 frameBorder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerPolicy="strict-origin-when-cross-origin"
                                 allowFullScreen
                             ></iframe>
                         </div>

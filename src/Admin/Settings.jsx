@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import TextEditor from "../editor";
 
 export default function Settings() {
-  const [activeTab, setActiveTab] = useState("general");
+  const [activeTab, setActiveTab] = useState("terms");
   const [editorContent, setEditorContent] = useState("");
   const [logoFile, setLogoFile] = useState(null);
   const [platformName, setPlatformName] = useState(
@@ -64,7 +64,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras condimentum quam a
 
         {/* ── Tabs ── */}
         <div className="flex gap-8 mb-6 border-b border-gray-200">
-          <button
+          {/* <button
             onClick={() => setActiveTab("general")}
             className={`pb-3 text-sm font-semibold transition-colors relative ${
               activeTab === "general"
@@ -76,7 +76,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras condimentum quam a
             {activeTab === "general" && (
               <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-900"></div>
             )}
-          </button>
+          </button> */}
           <button
             onClick={() => setActiveTab("terms")}
             className={`pb-3 text-sm font-semibold transition-colors relative ${

@@ -6,7 +6,6 @@ import logo from "../../assets/images/logo.png";
 import { Link, useLocation } from "react-router-dom";
 export default function Navbar() {
   const location = useLocation();
-  const [searchValue, setSearchValue] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
@@ -44,7 +43,7 @@ export default function Navbar() {
 
 
             {/* Dashboard Button */}
-            <button className="flex items-center gap-2 bg-[#1D2915] text-white font-medium px-4 sm:px-12 py-4 rounded-full hover:bg-[#001f42] transition-colors whitespace-nowrap">
+            <button className="flex items-center gap-2 bg-[#1D2915] text-white font-medium px-4 sm:px-12 py-4 rounded-full transition-colors whitespace-nowrap">
 
               <span className="hidden sm:inline">Download Now</span>
             </button>

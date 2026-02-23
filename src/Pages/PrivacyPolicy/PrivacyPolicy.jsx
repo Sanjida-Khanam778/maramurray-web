@@ -1,4 +1,3 @@
-import React from 'react';
 import bg7 from '../../assets/images/bg7.png';
 
 export default function PrivacyPolicy() {
@@ -21,9 +20,7 @@ export default function PrivacyPolicy() {
                 </h1>
 
                 <div className="space-y-8 text-gray-700">
-                    <p className="text-sm font-semibold text-gray-400">
-                        Last updated: October 26, 2024
-                    </p>
+                
 
                     <p className="leading-relaxed">
                         At GardenApp, we value your privacy as much as your garden. This policy outlines how we handle your data,

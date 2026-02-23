@@ -130,18 +130,6 @@ export default function UsersManagement() {
     setEditUserId(null);
   };
 
-  const handleEditClick = (user) => {
-    setFormData({
-      name: user.name,
-      email: user.email,
-      location: user.location || "New York, NY", // Default if missing
-      password: "", // Don't show password for security
-    });
-    setEditUserId(user.id);
-    setIsModalOpen(true);
-    setOpenDropdown(null);
-  };
-
   const handleDeleteUser = (id) => {
     if (confirm("Are you sure you want to delete this user?")) {
       setUsers(users.filter((u) => u.id !== id));
@@ -174,7 +162,7 @@ export default function UsersManagement() {
               Manage and monitor all user accounts
             </p>
           </div>
-          <button
+          {/* <button
             onClick={() => {
               setEditUserId(null);
               setFormData({ name: "", email: "", location: "", password: "" });
@@ -196,7 +184,7 @@ export default function UsersManagement() {
               />
             </svg>
             Add User
-          </button>
+          </button> */}
         </div>
 
         <div className="bg-white p-6 rounded-xl border border-[#C8D8BF]">
@@ -358,25 +346,7 @@ export default function UsersManagement() {
                             </svg>
                             View Details
                           </button>
-                          <button
-                            onClick={() => handleEditClick(user)}
-                            className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
-                          >
-                            <svg
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth={1.8}
-                              className="w-4 h-4 text-gray-500"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
-                              />
-                            </svg>
-                            Edit User
-                          </button>
+                    
                           <button
                             onClick={() => handleDeactivateUser(user.id)}
                             className="w-full text-left px-4 py-2.5 text-sm text-orange-600 hover:bg-orange-50 flex items-center gap-2"
@@ -549,28 +519,7 @@ export default function UsersManagement() {
 
                 {/* Action Buttons */}
                 <div className="flex flex-col gap-2 min-w-[160px]">
-                  <button
-                    onClick={() => {
-                      setSelectedUser(null);
-                      handleEditClick(selectedUser);
-                    }}
-                    className="flex items-center justify-center gap-2 px-4 py-2 bg-green-500 hover:bg-green-600 text-white text-sm font-semibold rounded-lg transition-colors"
-                  >
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                      className="w-4 h-4"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13L2 21l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l12.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
-                      />
-                    </svg>
-                    Edit User
-                  </button>
+                
                   <button
                     onClick={() => handleDeactivateUser(selectedUser.id)}
                     className="flex items-center justify-center gap-2 px-4 py-2 bg-orange-400 hover:bg-orange-500 text-white text-sm font-semibold rounded-lg transition-colors"

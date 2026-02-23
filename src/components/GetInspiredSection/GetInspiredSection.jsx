@@ -48,17 +48,17 @@ export default function GetInspiredSection() {
           {gardens.map((garden) => (
             <div
               key={garden.id}
-              className="group cursor-pointer transition-all duration-300 hover:-translate-y-2"
+              className="group cursor-pointer transition-all duration-300"
             >
-              <div className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-2xl transition-shadow duration-300">
+              <div className="bg-white rounded-2xl shadow-md overflow-hidden transition-shadow duration-300">
                 {/* Image Container */}
                 <div className="relative h-64 overflow-hidden bg-gray-200">
                   <img
                     src={garden.image}
                     alt={garden.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 transition-opacity duration-300" />
                 </div>
 
                 {/* Content */}
