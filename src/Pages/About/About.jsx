@@ -78,7 +78,7 @@ export default function About() {
                 <img src={leaf4} className='absolute z-10 left-0 top-0' alt="" />
                 <div className="bg-gradient-to-l from-[#1F2D16] to-[#3A5A40] p-12 md:p-20 text-white shadow-2xl relative overflow-hidden">
                     <img src={quotation} className='mx-auto mb-6' alt="" />
-                    <p className="text-3xl xl:text-5xl text-white max-w-4xl mx-auto font-bold mb-8">
+                    <p className="text-3xl xl:text-5xl text-white max-w-4xl mx-auto font-bold mb-8 z-50 relative">
                         "Our mission is to reconnect people with
                         nature by removing the barriers to
                         creating beautiful, sustainable outdoor
@@ -106,7 +106,7 @@ export default function About() {
                     <h2 className="text-3xl font-bold text-left text-[#1D2915] mb-16">
                         Our Core Values
                     </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 z-50 relative">
                         {values.map((value, index) => (
                             <div
                                 key={index}

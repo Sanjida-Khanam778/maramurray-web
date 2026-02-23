@@ -15,7 +15,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className={`w-full z-50 bg-[#E7E9DD]/60 backdrop-blur-md rounded-b-full ${location.pathname === "/"
+    <nav className={`w-full z-50 bg-[#E7E9DD]/60 backdrop-blur-md lg:rounded-b-full ${location.pathname === "/"
       ? ""
       : "absolute top-0 left-0"}`}>
       <div className="w-11/12 mx-auto px-4 sm:px-6 lg:px-8 py-4">
