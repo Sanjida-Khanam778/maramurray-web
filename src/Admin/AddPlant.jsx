@@ -1,6 +1,7 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 
+
 export default function AddPlantForm({ initialData, onBack }) {
     const [formData, setFormData] = useState({
         commonName: initialData?.name || "",

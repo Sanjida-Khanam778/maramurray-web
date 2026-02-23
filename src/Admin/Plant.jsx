@@ -1,15 +1,19 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { Edit3, Plus, Search } from "lucide-react";
 import { MdDelete } from "react-icons/md";
 import AddPlantForm from "./AddPlant";
+import plant2 from '../assets/images/plant2.png';
+import plant3 from '../assets/images/plant3.png';
+import plant4 from '../assets/images/plant4.png';
 
 function Plant() {
-    const [plants] = useState([
+    const [plants, setPlants] = useState([
         {
             id: 1,
             name: "English Rose",
             scientificName: "Rosa anglica",
-            image: "https://res.cloudinary.com/dfsu0cuvb/image/upload/v1737529180/cld-sample-2.jpg",
+            image: plant2,
             tags: [{ name: "Flower", color: "bg-green-100 text-green-700" }],
             zones: "Zones 5-9",
             gardensCount: 254,
@@ -18,7 +22,7 @@ function Plant() {
             id: 2,
             name: "Japanese Maple",
             scientificName: "Acer palmatum",
-            image: "https://res.cloudinary.com/dfsu0cuvb/image/upload/v1737529179/samples/coffee.jpg",
+            image: plant4,
             tags: [{ name: "Tree", color: "bg-green-100 text-green-700" }],
             zones: "Zones 5-8",
             gardensCount: 512,
@@ -27,7 +31,7 @@ function Plant() {
             id: 3,
             name: "Lavender",
             scientificName: "Lavandula angustifolia",
-            image: "https://res.cloudinary.com/dfsu0cuvb/image/upload/v1737529170/samples/ecommerce/accessories-bag.jpg",
+            image: plant3,
             tags: [{ name: "Shrub", color: "bg-green-100 text-green-700" }],
             zones: "Zones 5-9",
             gardensCount: 892,
@@ -37,6 +41,26 @@ function Plant() {
     const [searchTerm, setSearchTerm] = useState("");
     const [view, setView] = useState("list"); // 'list' or 'form'
     const [editingPlant, setEditingPlant] = useState(null);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [plantToDelete, setPlantToDelete] = useState(null);
+
+    const handleDeleteClick = (plant) => {
+        setPlantToDelete(plant);
+        setIsDeleteModalOpen(true);
+    };
+    const filteredPlants = plants.filter(
+        (plant) =>
+            plant.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            plant.scientificName.toLowerCase().includes(searchTerm.toLowerCase()),
+    );
+    const confirmDelete = () => {
+        if (plantToDelete) {
+            setPlants(plants.filter(p => p.id !== plantToDelete.id));
+            toast.success("Plant deleted successfully!");
+            setIsDeleteModalOpen(false);
+            setPlantToDelete(null);
+        }
+    };
 
     const handleAddClick = () => {
         setEditingPlant(null);
@@ -91,7 +115,7 @@ function Plant() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {plants.map((plant) => (
+                {filteredPlants.map((plant) => (
                     <div
                         key={plant.id}
                         className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
@@ -111,8 +135,11 @@ function Plant() {
                                         {plant.name}
                                     </h3>
 
-                                    <button className="cursor-pointer bg-[#FF000080] hover:bg-red-200 text-white rounded-full p-1 transition-colors">
-                                        <MdDelete size={24} />
+                                    <button
+                                        onClick={() => handleDeleteClick(plant)}
+                                        className="cursor-pointer bg-[#FF000080] hover:bg-red-600 text-white rounded-full p-2 transition-colors"
+                                    >
+                                        <MdDelete size={20} />
                                     </button>
                                 </div>
 
@@ -153,6 +180,32 @@ function Plant() {
                     </div>
                 ))}
             </div>
+
+            {/* Delete Confirmation Modal */}
+            {isDeleteModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+                    <div className="bg-white rounded-2xl p-8 max-w-xl w-full mx-4 shadow-2xl transform transition-all">
+                        <h2 className="text-2xl font-bold text-gray-900 mb-4">Delete Plant?</h2>
+                        <p className="text-gray-500 mb-4 leading-relaxed">
+                            This will permanently delete this Plant. This action cannot be undone.
+                        </p>
+                        <div className="flex justify-end gap-3">
+                            <button
+                                onClick={() => setIsDeleteModalOpen(false)}
+                                className="px-6 py-1 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-all hover:scale-105"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={confirmDelete}
+                                className="px-6 py-1 bg-[#FF0000] text-white font-semibold rounded-xl hover:bg-red-700 transition-all hover:scale-105 shadow-lg shadow-red-200"
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
