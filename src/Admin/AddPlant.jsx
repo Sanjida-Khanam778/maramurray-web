@@ -43,6 +43,23 @@ export default function AddPlantForm({ initialData, onBack }) {
         console.log("Form data:", formData);
         console.log("Files:", selectedFiles);
         toast.success("Plant added successfully!");
+        setFormData({
+            commonName: "",
+            scientificName: "",
+            plantType: "",
+            description: "",
+            sunlight: "",
+            water: "",
+            spacing: "",
+            growZone: "",
+            season: "",
+            difficulty: "",
+            careGuide: "",
+            bloomSeason: "",
+            addLink: "",
+            tags: "",
+        });
+        setSelectedFiles([]);
     };
 
     return (
