@@ -341,7 +341,7 @@ export default function TextEditor(
   return (
     <div className="main-container rounded-lg">
       <div
-        className="editor-container editor-container_balloon-editor editor-container_include-style"
+        className="editor-container editor-container_include-style"
         ref={editorContainerRef}
       >
         <div className="editor-container__editor">
@@ -527,7 +527,6 @@ li {
  
 /* Links */
 a {
-  color: #0d6efd;
   text-decoration: none;
 }
  

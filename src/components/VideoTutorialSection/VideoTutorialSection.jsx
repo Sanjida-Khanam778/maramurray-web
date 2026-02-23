@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import plant from '../../assets/images/plant.png';
+import videoFront from '../../assets/images/videoFront2.png';
+import video from '../../assets/videos/video2.mp4';
 
 export default function VideoTutorialSection() {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -29,13 +31,13 @@ export default function VideoTutorialSection() {
                         // Video Thumbnail with Play Button
                         <div className="relative">
                             <img
-                                src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1200&h=600&fit=crop"
+                                src={videoFront}
                                 alt="Garden tutorial preview"
                                 className="w-full h-[500px] object-cover"
                             />
 
                             {/* Overlay */}
-                            <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors duration-300"></div>
+                            <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors duration-300"></div>
 
                             {/* Play Button */}
                             <button
@@ -69,30 +71,28 @@ export default function VideoTutorialSection() {
                                     </span>
                                 </div>
 
-                                <div className="bg-black/70 backdrop-blur-sm rounded-full px-4 py-2">
-                                    <span className="text-sm font-medium text-white">2:35 min</span>
+                                <div className="bg-black/30 backdrop-blur-sm rounded-full px-4 py-2">
+                                    <span className="text-sm font-medium text-white">0:27 min</span>
                                 </div>
                             </div>
                         </div>
                     ) : (
                         // Video Player (iframe for YouTube/Vimeo or video element)
                         <div className="relative w-full h-[500px] bg-black">
-                            <iframe
-                                className="w-full h-full"
-                                src="https://www.youtube.com/embed/z2Xs_x8-uI8?si=-FOJvOYA8BflxEUE"
-                                title="YouTube video player"
-                                frameBorder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                referrerPolicy="strict-origin-when-cross-origin"
-                                allowFullScreen
-                            ></iframe>
+                            <video
+                                className="w-full h-full object-cover"
+                                src={video}
+                                controls
+                                autoPlay
+                                playsInline
+                            ></video>
                         </div>
                     )}
                 </div>
 
                 {/* Bottom Description */}
                 <p className="text-center text-green-600 mt-6 text-sm md:text-base">
-                    A quick and easy tutorial with great graphics set to music
+                    A quick and easy tutorial with great graphics
                 </p>
             </div>
         </div>

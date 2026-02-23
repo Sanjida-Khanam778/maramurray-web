@@ -31,7 +31,7 @@ export default function Dashboard() {
         {/* Close button for md and below (hidden on lg+) */}
         {sidebarOpen && (
           <button
-            className="lg:hidden absolute top-4 right-4 z-50 bg-primary rounded-full p-2 shadow-lg"
+            className="lg:hidden absolute top-4 right-4 z-50 bg-gradient-to-b from-[#809971] to-[#1F2D16] rounded-full p-2 shadow-lg"
             onClick={() => setSidebarOpen(false)}
             aria-label="Close sidebar"
           >

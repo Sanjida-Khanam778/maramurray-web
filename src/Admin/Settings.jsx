@@ -4,7 +4,6 @@ import TextEditor from "../editor";
 
 export default function Settings() {
   const [activeTab, setActiveTab] = useState("terms");
-  const [editorContent, setEditorContent] = useState("");
   const [logoFile, setLogoFile] = useState(null);
   const [platformName, setPlatformName] = useState(
     "Learning Management System",
@@ -15,20 +14,14 @@ export default function Settings() {
   );
 
   const [isEditingTerms, setIsEditingTerms] = useState(false);
-  const [termsContent, setTermsContent] =
-    useState(`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras condimentum quam at vestibulum porttitor. Vestibulum tempor ac purus vitae finibus. Cras tempor felis vitae sapien fermentum, nec feugiat ligula interdum. Morbi mattis imperdiet libero, a eleifend nunc condimentum nec. In hac habitasse platea dictumst. In ac porttitor mi. Sed neque ligula, fringilla vitae nunc id, tristique vestibulum eros. Sed a tortor erat. Sed sem libero, condimentum sed dui non, congue mollis felis. Nam consectetur tincidunt elit non accumsan. Maecenas congue nibh sed aliquet sagittis. Fusce mollis tortor sed pharetra euismod.
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras condimentum quam at vestibulum porttitor. Vestibulum tempor ac purus vitae finibus. Cras tempor felis vitae sapien fermentum, nec feugiat ligula interdum. Morbi mattis imperdiet libero, a eleifend nunc condimentum nec. In hac habitasse platea dictumst. In ac porttitor mi. Sed neque ligula, fringilla vitae nunc id, tristique vestibulum eros. Sed a tortor erat. Sed sem libero, condimentum sed dui non, congue mollis felis. Nam consectetur tincidunt elit non accumsan. Maecenas congue nibh sed aliquet sagittis. Fusce mollis tortor sed pharetra euismod.
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras condimentum quam at vestibulum porttitor. Vestibulum tempor ac purus vitae finibus. Cras tempor felis vitae sapien fermentum, nec feugiat ligula interdum. Morbi mattis imperdiet libero, a eleifend nunc condimentum nec. In hac habitasse platea dictumst. In ac porttitor mi. Sed neque ligula, fringilla vitae nunc id, tristique vestibulum eros. Sed a tortor erat. Sed sem libero, condimentum sed dui non, congue mollis felis. Nam consectetur tincidunt elit non accumsan. Maecenas congue nibh sed aliquet sagittis. Fusce mollis tortor sed pharetra euismod.`);
+  const [termsContent, setTermsContent] = useState(
+    `<p><strong>Florle LLC</strong> is a platform for gardening design and landscaping, providing an all-in-one software solution for individuals to plant and update their gardens from start to finish. Using Florle LLC, individuals can find ideas and inspiration, find professionals and local retailers. As part of the Florle LLC Platform, Florle LLC is a cloud-based, AI-powered project management and design software program that helps individuals design their gardens from start to finish. Florle LLC Pro also provides their clients with 24/7 access to project information, 3D visualizations and a social platform where they can interact and get inspired with fellow gardeners.</p><p><strong>Highlights:</strong> This is a binding contract. These Terms form an agreement between you and Florle LLC and will always govern your use of Florle LLC’s services. By accessing or using the Florle LLC Platform, you are agreeing to these Terms.</p><p><strong>The Florle Platform:</strong> These Terms set forth the binding legal agreement between you and Florle LLC. These Terms govern your use of florle.com and all related websites, mobile applications, products, software, service, programs, and networks offered by Florle.</p><p><strong>Using the Florle LLC Platform:</strong> Anyone over 18 years of age may use the Florle LLC Platform. Use by individuals under 18 is strictly prohibited. You may close your account at any time through your account settings.</p><p><strong>Your Content:</strong> The Florle LLC Platform enables you to post, input, upload, or otherwise submit materials. You grant to Florle LLC a non-exclusive, perpetual, irrevocable, royalty-free, transferable, worldwide license to use, reproduce, modify, and distribute Your Content.</p><p><strong>AI & Visual Tools Notice:</strong> Our AI-powered design tools and visual features are designed to inspire and assist you. However, they are provided for general informational purposes only and should not be considered professional landscaping, horticultural, construction, environmental, or safety advice.</p><p><strong>Disclaimer of Warranties:</strong> The App, AI Features, content, and services are provided on an “AS IS” and “AS AVAILABLE” basis without warranties of any kind.</p><p><strong>Limitations of Liability:</strong> To the fullest extent permitted by applicable law, the Company’s total cumulative liability for any claims shall not exceed the greater of $100 or the amount paid by the User to the Company in the twelve (12) months preceding the claim.</p>`,
+  );
 
   const [isEditingPrivacy, setIsEditingPrivacy] = useState(false);
-  const [privacyContent, setPrivacyContent] =
-    useState(`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras condimentum quam at vestibulum porttitor. Vestibulum tempor ac purus vitae finibus. Cras tempor felis vitae sapien fermentum, nec feugiat ligula interdum. Morbi mattis imperdiet libero, a eleifend nunc condimentum nec. In hac habitasse platea dictumst. In ac porttitor mi. Sed neque ligula, fringilla vitae nunc id, tristique vestibulum eros. Sed a tortor erat. Sed sem libero, condimentum sed dui non, congue mollis felis. Nam consectetur tincidunt elit non accumsan. Maecenas congue nibh sed aliquet sagittis. Fusce mollis tortor sed pharetra euismod.
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras condimentum quam at vestibulum porttitor. Vestibulum tempor ac purus vitae finibus. Cras tempor felis vitae sapien fermentum, nec feugiat ligula interdum. Morbi mattis imperdiet libero, a eleifend nunc condimentum nec. In hac habitasse platea dictumst. In ac porttitor mi. Sed neque ligula, fringilla vitae nunc id, tristique vestibulum eros. Sed a tortor erat. Sed sem libero, condimentum sed dui non, congue mollis felis. Nam consectetur tincidunt elit non accumsan. Maecenas congue nibh sed aliquet sagittis. Fusce mollis tortor sed pharetra euismod.
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras condimentum quam at vestibulum porttitor. Vestibulum tempor ac purus vitae finibus. Cras tempor felis vitae sapien fermentum, nec feugiat ligula interdum. Morbi mattis imperdiet libero, a eleifend nunc condimentum nec. In hac habitasse platea dictumst. In ac porttitor mi. Sed neque ligula, fringilla vitae nunc id, tristique vestibulum eros. Sed a tortor erat. Sed sem libero, condimentum sed dui non, congue mollis felis. Nam consectetur tincidunt elit non accumsan. Maecenas congue nibh sed aliquet sagittis. Fusce mollis tortor sed pharetra euismod.`);
+  const [privacyContent, setPrivacyContent] = useState(
+    `<h3>PRIVACY POLICY</h3><p>This Privacy Policy describes how we handle your personal information when you (“professional”, “you”, or “your”) use the Florle Platform and your rights and choices regarding this information. By “Platform” or “Florle Platform” we mean the Florle platforms (including florle.com and any related domains), and any Florle service feature or tool that links to this Privacy Policy. The Florle Platform also includes mobile apps, products, software, services, programs, and networks offered by Florle LLC, including plug-ins and browser extensions.</p><p>Access to and use of our Platform is subject to this Privacy Policy. The collection of personal information of job applicants is governed by the Job Applicant Privacy Notice.</p><p>The terms “we,” “us,” “our,” or “Florle” refer to Florle LLC and its corporate affiliates.</p><h4>1. Collection of Personal Information</h4><p>The personal information we collect depends on how you choose to engage with the Platform. In general, we collect, as a data controller, personal information that you provide us, from third parties, and automatically when you use our Platform.</p><p><strong>Personal Information You Provide Us</strong></p><p>We collect personal information that you provide us, including your account and profile information, content you submit or post to our Platform, your purchase information, your communications, and personal information you provide to us as part of promotions, surveys, and contests.</p><p><strong>Account and Profile Information:</strong> When you create an account on our Platform, we collect your email address and other information you may choose to provide us, such as your name, address, interests, and profile information. If you are a professional, you may also provide us with information related to your business, including a business name, description, phone number, and areas served.</p><p><strong>Content You Submit:</strong> We collect information and content that you submit, share, or create across our Platform, including company information, profile pictures, reviews, messages, comments, searches, photos, preferences, project details, project costs, timelines, change orders, and invoices.</p><p><strong>Purchases:</strong> If you purchase, make, or receive payments within our Platform, we collect certain information to complete those transactions, such as your phone number, address, and payment method (e.g., credit card or bank account information).</p><p><strong>Communications:</strong> When you communicate with us (via email, phone, through our Platform, chatbots, or otherwise), and when you use our Platform to communicate with others, we may record, monitor, collect, and use details about you and your communications (including call time and duration), in accordance with applicable law.</p><p><strong>Personal Information from Others</strong></p><p>We may collect information made available to us by third parties, including other platforms, publicly available sources, and partners.</p><h4>2. Use of Personal Information</h4><p>We use personal information to provide, operate, and improve our Platform, personalize your experience, provide customer support, and display relevant advertising.</p><h4>3. Sharing Your Personal Information</h4><p>We may share your personal information with other users, professionals, service providers, and partners to comply with legal obligations.</p><h4>4. Your Choices and Rights</h4><p>Depending on your location, you may have the right to access, correct, download, or delete your data.</p><h4>5. Contact Us</h4><p>If you have questions about this Privacy Policy, please contact: <strong>customerservice@florle.com</strong></p>`,
+  );
 
   const handleLogoUpload = (e) => {
     const file = e.target.files[0];
@@ -52,7 +45,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras condimentum quam a
   };
 
   return (
-    <div className="min-h-screen bg-[#f3f2ee] p-6 md:p-10">
+    <div className="bg-[#f3f2ee] p-6 md:p-10">
       <div className="mx-auto">
         {/* ── Header ── */}
         <div className="mb-8">
@@ -79,11 +72,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras condimentum quam a
           </button> */}
           <button
             onClick={() => setActiveTab("terms")}
-            className={`pb-3 text-sm font-semibold transition-colors relative ${
-              activeTab === "terms"
-                ? "text-gray-900"
-                : "text-gray-500 hover:text-gray-700"
-            }`}
+            className={`pb-3 text-sm font-semibold transition-colors relative ${activeTab === "terms"
+              ? "text-gray-900"
+              : "text-gray-500 hover:text-gray-700"
+              }`}
           >
             Terms & Conditions
             {activeTab === "terms" && (
@@ -92,11 +84,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras condimentum quam a
           </button>
           <button
             onClick={() => setActiveTab("privacy")}
-            className={`pb-3 text-sm font-semibold transition-colors relative ${
-              activeTab === "privacy"
-                ? "text-gray-900"
-                : "text-gray-500 hover:text-gray-700"
-            }`}
+            className={`pb-3 text-sm font-semibold transition-colors relative ${activeTab === "privacy"
+              ? "text-gray-900"
+              : "text-gray-500 hover:text-gray-700"
+              }`}
           >
             Privacy Policy
             {activeTab === "privacy" && (
@@ -106,7 +97,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras condimentum quam a
         </div>
 
         {/* ── Tab Content ── */}
-        {activeTab === "general" && (
+        {/* {activeTab === "general" && (
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
             <div className="flex items-center gap-2 mb-2">
               <svg
@@ -128,10 +119,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras condimentum quam a
             </div>
             <p className="text-sm text-gray-500 mb-6">
               Basic configuration for your platform
-            </p>
+            </p> */}
 
-            {/* Logo Upload */}
-            <div className="flex items-center gap-4 mb-6">
+        {/* Logo Upload */}
+        {/* <div className="flex items-center gap-4 mb-6">
               <div className="w-16 h-16 bg-[#1F2D16] rounded-full flex items-center justify-center text-white font-bold text-xl overflow-hidden">
                 {logoFile ? (
                   <img
@@ -161,10 +152,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras condimentum quam a
                   Professional photo recommended (JPG, PNG - Max. 5MB)
                 </p>
               </div>
-            </div>
+            </div> */}
 
-            {/* Form Fields */}
-            <div className="grid grid-cols-2 gap-4 mb-4">
+        {/* Form Fields */}
+        {/* <div className="grid grid-cols-2 gap-4 mb-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1.5">
                   Platform Name
@@ -208,7 +199,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras condimentum quam a
               Save
             </button>
           </div>
-        )}
+        )} */}
 
         {activeTab === "terms" && (
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
@@ -255,18 +246,12 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras condimentum quam a
             </div>
 
             {isEditingTerms ? (
-              <textarea
-                value={termsContent}
-                onChange={(e) => setTermsContent(e.target.value)}
-                rows={12}
-                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-700 leading-relaxed focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent resize-none mb-6"
-              />
+              <TextEditor htmlElement={termsContent} onChange={(value) => setTermsContent(value)} isEditable={true} />
             ) : (
-              <div className="text-sm text-gray-700 leading-relaxed mb-6 space-y-4">
-                {termsContent.split("\n\n").map((paragraph, i) => (
-                  <p key={i}>• {paragraph}</p>
-                ))}
-              </div>
+              <div
+                className="text-sm text-gray-700 leading-relaxed mb-6 space-y-4 ck-content"
+                dangerouslySetInnerHTML={{ __html: termsContent }}
+              />
             )}
 
             <div className="flex gap-3">
@@ -346,15 +331,14 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras condimentum quam a
             </div>
 
             {isEditingPrivacy ? (
-            //  
-                        <TextEditor htmlElement={editorContent} onChange={(value) => setEditorContent(value)} isEditable={true} />
+              //  
+              <TextEditor htmlElement={privacyContent} onChange={(value) => setPrivacyContent(value)} isEditable={true} />
 
             ) : (
-              <div className="text-sm text-gray-700 leading-relaxed mb-6 space-y-4">
-                {privacyContent.split("\n\n").map((paragraph, i) => (
-                  <p key={i}>• {paragraph}</p>
-                ))}
-              </div>
+              <div
+                className="text-sm text-gray-700 leading-relaxed mb-6 space-y-4 ck-content"
+                dangerouslySetInnerHTML={{ __html: privacyContent }}
+              />
             )}
 
             <div className="flex gap-3">
