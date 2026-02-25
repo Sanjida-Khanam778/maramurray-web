@@ -97,7 +97,7 @@ export default function About() {
                 </div>
             </section>
 
-         
+
             {/* Values Grid */}
             <section className="py-20 px-4 relative">
                 <img src={leaf5} className='absolute z-10 right-0 top-10' alt="" />
@@ -124,8 +124,8 @@ export default function About() {
                     </div>
                 </div>
             </section>
-   <StatsBanner />
-      <CTADownload />
+            <StatsBanner />
+            <CTADownload />
 
         </div>
     );

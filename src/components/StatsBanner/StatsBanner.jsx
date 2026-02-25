@@ -3,12 +3,12 @@ export default function StatsBanner() {
     { value: "50k+", label: "Gardens Designed" },
     { value: "1M+",  label: "Plants Suggested" },
     { value: "$5M+", label: "Saved by Users" },
-    { value: "12",   label: "Countries Active" },
+    // { value: "12",   label: "Countries Active" },
   ];
 
   return (
     <section className="w-full bg-gradient-to-l from-[#1F2D16] to-[#3A5A40] py-10 xl:py-16 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 divide-x divide-white/20">
+      <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-3 divide-x divide-white/20">
         {stats.map((stat, i) => (
           <div
             key={i}

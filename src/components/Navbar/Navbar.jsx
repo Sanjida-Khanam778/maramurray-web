@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import logo from "../../assets/images/logo.png";
-import { Link, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 export default function Navbar() {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -28,13 +28,16 @@ export default function Navbar() {
           {/* Desktop Navigation Links */}
           <div className="hidden lg:flex items-center gap-4 xl:gap-16">
             {navLinks.map((link) => (
-              <Link
+              <NavLink
                 key={link.label}
                 to={link.href}
-                className="font-bold transition-colors"
+                className={({ isActive }) =>
+                  `font-bold transition-colors ${isActive ? "text-green-600" : "text-gray-700 hover:text-green-600"
+                  }`
+                }
               >
                 {link.label}
-              </Link>
+              </NavLink>
             ))}
           </div>
 
@@ -67,14 +70,17 @@ export default function Navbar() {
             {/* Mobile Navigation Links */}
             <div className="flex flex-col gap-3">
               {navLinks.map((link) => (
-                <Link
+                <NavLink
                   key={link.label}
                   to={link.href}
-                  className="text-gray-700 hover:text-gray-900 font-medium transition-colors py-2 px-2"
+                  className={({ isActive }) =>
+                    `font-medium transition-colors py-2 px-2 ${isActive ? "text-green-600" : "text-gray-700 hover:text-green-600"
+                    }`
+                  }
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.label}
-                </Link>
+                </NavLink>
               ))}
             </div>
           </div>
