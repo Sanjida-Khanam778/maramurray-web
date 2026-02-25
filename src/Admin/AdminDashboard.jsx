@@ -66,7 +66,7 @@ const stats = [
     up: true,
   },
   {
-    label: "Total Plants",
+    label: "Total Projects",
     value: "1,247",
     icon: (
       <svg
