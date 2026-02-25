@@ -6,7 +6,7 @@ import leaf5 from '../../assets/images/leaf5.png';
 import { Leaf, Users, ShieldCheck, Heart, GraduationCap, Lightbulb, CircleCheckBig } from 'lucide-react';
 import ChallengeSection from '../../components/ChallengeSection/ChallengeSection';
 import { FaUsers } from 'react-icons/fa';
-import { LiaCanadianMapleLeaf } from 'react-icons/lia';
+import { LiaCanadianMapleLeaf } from 'react-icons/lia'; 
 import StatsBanner from '../../components/StatsBanner/StatsBanner';
 import CTADownload from '../../components/CTADownload/CTADownload';
 
