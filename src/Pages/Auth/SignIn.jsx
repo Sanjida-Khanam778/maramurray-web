@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Mail, Lock, Eye, EyeOff, TreeDeciduous } from "lucide-react";
 import toast from "react-hot-toast";
-import bgImageUrl from "../../assets/images/bgImage.png?url";
-import logoUrl from "../../assets/images/logo.png?url";
+import bgImageUrl from "../../assets/images/bgImage.png";
+import logoUrl from "../../assets/logo2.png";
 import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {

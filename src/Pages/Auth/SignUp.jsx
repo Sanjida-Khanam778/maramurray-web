@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { User, Mail, Lock, Eye, EyeOff, TreeDeciduous } from "lucide-react";
 import toast from "react-hot-toast";
 import bgImage from "../../assets/images/bgImage.png";
-import logo from "../../assets/images/Logo.png";
+import logo from "../../assets/logo2.png";
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);

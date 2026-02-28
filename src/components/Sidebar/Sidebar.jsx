@@ -4,7 +4,7 @@ import { LuCircleUserRound, LuDumbbell, LuSettings } from "react-icons/lu";
 import { LogOut } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { TbDiamond } from "react-icons/tb";
-import logo from "../../assets/images/logo.png";
+import logo from "../../assets/logo2.png";
 import { RxDashboard } from "react-icons/rx";
 import { PiShoppingBagOpenBold } from "react-icons/pi";
 export default function Sidebar() {
