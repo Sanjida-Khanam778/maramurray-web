@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { Mail, Lock, Eye, EyeOff, TreeDeciduous } from "lucide-react";
 import toast from "react-hot-toast";
-import bgImage from "../../assets/images/bgImage.png";
-import logo from "../../assets/images/logo.png";
+import bgImageUrl from "../../assets/images/bgImage.png?url";
+import logoUrl from "../../assets/images/logo.png?url";
 import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {
@@ -28,7 +27,7 @@ export default function SignIn() {
   return (
     <div
       className="min-h-screen w-full flex items-center justify-center p-4 bg-cover bg-center relative font-rubik"
-      style={{ backgroundImage: `url(${bgImage})` }}
+      style={{ backgroundImage: `url(${bgImageUrl})` }}
     >
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/30 backdrop-blur-[2px]"></div>
@@ -36,14 +35,21 @@ export default function SignIn() {
       {/* Login Card */}
       <div className="w-full max-w-md relative z-10">
         <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/20">
-
           {/* Header */}
           <div className="text-center mb-8">
             <div className="mb-4 flex justify-center">
-              <img src={logo} alt="GardenApp Logo" className="object-contain" />
+              <img
+                src={logoUrl}
+                alt="GardenApp Logo"
+                className="object-contain"
+              />
             </div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h1>
-            <p className="text-gray-600">Enter your credentials to access your garden</p>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              Welcome Back
+            </h1>
+            <p className="text-gray-600">
+              Enter your credentials to access your garden
+            </p>
           </div>
 
           {/* Form */}
@@ -61,7 +67,9 @@ export default function SignIn() {
                   placeholder="name@example.com"
                   className="w-full pl-10 pr-4 py-3 bg-white/50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-600 transition-all outline-none"
                   value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                 />
               </div>
             </div>
@@ -79,7 +87,9 @@ export default function SignIn() {
                   placeholder="••••••••"
                   className="w-full pl-10 pr-12 py-3 bg-white/50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-600 transition-all outline-none"
                   value={formData.password}
-                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, password: e.target.value })
+                  }
                 />
                 <button
                   type="button"
