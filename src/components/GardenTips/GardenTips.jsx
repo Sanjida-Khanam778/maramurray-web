@@ -22,7 +22,7 @@ export default function GardenTips() {
         {
             icon: Lightbulb,
             title: 'Soil Preparation',
-            description: 'Test your soil pH and amend with compost or fertilizer based on what you\'re planting.'
+            description: 'Healthy soil equals healthy plants. Test your soil pH and amend with compost or fertilizer based on what you\'re planting.'
         }
     ];
 

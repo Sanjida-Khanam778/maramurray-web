@@ -12,14 +12,15 @@ export default function ChooseYourPath() {
             subtitle: 'Your creativity, your design',
             icon: User,
             features: [
-                'Upload your garden photo',
+                'Upload your photo',
                 'Measure your space',
                 'Select plant material',
                 'Drag and drop images in desired placement',
                 'Create your design',
                 'Get 3D image and realistic rendering',
+                'Save designs to your profile',
                 'Plant calendar and complete plant list',
-                'Save designs to your profile'
+                'Affiliate links for easy shopping'
             ],
             bgImage: left,
             bgColor: '#00A63E'
@@ -30,11 +31,11 @@ export default function ChooseYourPath() {
             subtitle: 'AI-powered garden design',
             icon: Sparkles,
             features: [
-                'Upload your garden photo',
+                'Upload your photo',
                 'Measure your space',
                 'Select from suggested plant lists',
-                'Click create - let AI design for you',
-                'Get 3D image and realistic rendering',
+                'Select plant material',
+                'Let Florle Bloom AI design for you',
                 'Plant calendar and complete plant list',
                 'Affiliate links for easy shopping',
                 'Save designs to your profile'

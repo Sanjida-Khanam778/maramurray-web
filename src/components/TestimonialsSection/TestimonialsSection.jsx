@@ -41,10 +41,11 @@ export default function TestimonialsSection() {
 
     return (
         <div className="w-full relative py-16 px-4 sm:px-6 lg:px-8 bg-cover bg-center overflow-hidden"
-            style={{ backgroundImage: `url(${bg4})` }}>
+            style={{ backgroundImage: `url(${bg4})` }}
+            >
 
             {/* Green Overlay Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#0D542B]/60 to-[#00A63E]/20"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0D542B]/20 to-[#00A63E]/20"></div>
 
             <div className="max-w-7xl mx-auto relative z-10">
                 {/* Header */}
@@ -53,7 +54,7 @@ export default function TestimonialsSection() {
                         What They Say
                     </h2>
                     <p className="text-lg text-white/80 max-w-2xl mx-auto">
-                        Join thousands of gardeners who've brought their dreams to life
+                       Check out what our Florle community is saying
                     </p>
                 </div>
 

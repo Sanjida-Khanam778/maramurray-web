@@ -13,7 +13,7 @@ export default function VideoTutorialSection() {
     return (
         <div className="w-full bg-gradient-to-b from-gray-50 to-white py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
 
-            <img src={plant} className='absolute bottom-0 left-0' alt="" />
+            {/* <img src={plant} className='absolute bottom-0 left-0' alt="" /> */}
             <div className="max-w-6xl mx-auto relative">
                 {/* Header */}
                 <div className="text-center mb-12">

@@ -8,7 +8,7 @@ export default function Banner() {
             style={{ backgroundImage: `url(${bgImage})` }}
         >
             {/* Dark Overlay */}
-            <div className="absolute inset-0 bg-black/5"></div>
+            <div className="absolute inset-0 bg-black/15"></div>
 
             <div className="relative z-10 flex flex-col min-h-screen">
                 <Navbar />

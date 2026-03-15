@@ -39,9 +39,9 @@ export default function Footer() {
 
           {/* Contact */}
           <div className='place-items-center'>
-            <h4 className="text-lg font-semibold mb-4">Contact</h4>
+            <h4 className="text-lg font-semibold mb-4">Get in touch</h4>
             <ul className="space-y-3 font-semibold">
-              <li className="flex items-center gap-3 ">
+              {/* <li className="flex items-center gap-3 ">
                 <svg
                   className="w-5 h-5 text-green-600 flex-shrink-0"
                   fill="none"
@@ -58,7 +58,7 @@ export default function Footer() {
                 <a href="tel:+211444222" className="hover:text-green-600 transition-colors duration-200">
                   +211444222
                 </a>
-              </li>
+              </li> */}
               <li className="flex items-center gap-3 ">
                 <svg
                   className="w-5 h-5 text-green-600 flex-shrink-0"
@@ -74,7 +74,7 @@ export default function Footer() {
                   />
                 </svg>
                 <a href="mailto:your@garden.com" className="transition-colors duration-200">
-                  your@garden.com
+               customerservice@florle.com
                 </a>
               </li>
             </ul>

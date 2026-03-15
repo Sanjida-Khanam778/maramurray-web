@@ -1,30 +1,33 @@
 import React from 'react';
-
+import image1 from '../../assets/images/get1.png'
+import image2 from '../../assets/images/get2.png'
+import image3 from '../../assets/images/get3.png'
+import image4 from '../../assets/images/get4.png'
 export default function GetInspiredSection() {
   const gardens = [
     {
       id: 1,
       title: 'Modern Minimalist Patio',
       author: 'Emma',
-      image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600&h=400&fit=crop'
+      image: image1
     },
     {
       id: 2,
       title: 'Courtyard Oasis',
       author: 'David',
-      image: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=600&h=400&fit=crop'
+      image: image2
     },
     {
       id: 3,
       title: 'Succulent Garden',
       author: 'Rachel',
-      image: 'https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?w=600&h=400&fit=crop'
+      image: image3
     },
     {
       id: 4,
       title: 'Backyard Paradise',
       author: 'James',
-      image: 'https://images.unsplash.com/photo-1558904541-efa843a96f01?w=600&h=400&fit=crop'
+      image: image4
     }
   ];
 
@@ -34,13 +37,14 @@ export default function GetInspiredSection() {
      
 
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl text-gray-900 mb-4">
-            Get Inspired
+         Join the Florle Community and Get Inspired
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Discover beautiful gardens created by our community
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-2">
+          Browse thousands of shared designs from gardeners like you. Share your own designs, get connected and inspire others.
           </p>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">Let‘s Bloom together</p>
         </div>
 
         {/* Gallery Grid */}
