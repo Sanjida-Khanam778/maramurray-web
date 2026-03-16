@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "",
+  baseUrl: "https://api.florle.com/api/v1",
   prepareHeaders: (headers, { getState }) => {
     // Try to get token from Redux state
     const token = getState().auth?.accessToken || null;
@@ -9,7 +9,7 @@ const baseQuery = fetchBaseQuery({
     if (token) {
       headers.set("authorization", `Bearer ${token}`);
     } else {
-      const authData = JSON.parse(localStorage.getItem("auth")); // Parse the `auth` object from local storage
+      const authData = JSON.parse(localStorage.getItem("auth"));
       if (authData?.access) {
         headers.set("authorization", `Bearer ${authData.access}`); // Set Authorization header
       }

@@ -4,6 +4,9 @@ import toast from "react-hot-toast";
 import bgImageUrl from "../../assets/images/bgImage.png";
 import logoUrl from "../../assets/logo2.png";
 import { useNavigate } from "react-router-dom";
+import { useSignInMutation } from "../../Api/authApi";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../../Stores/authSlice";
 
 export default function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
@@ -13,15 +16,23 @@ export default function SignIn() {
     rememberMe: false,
   });
   const navigate = useNavigate();
+  const [signIn, { isLoading }] = useSignInMutation();
+  const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.email || !formData.password) {
       toast.error("Please fill in all fields");
       return;
     }
-    toast.success("Welcome back to GardenApp!");
-    navigate("/admin/dashboard");
+    try {
+      const result = await signIn(formData).unwrap();
+      dispatch(setCredentials(result));
+      toast.success("Welcome back to GardenApp!");
+      navigate("/admin/dashboard");
+    } catch (error) {
+      toast.error("Login failed");
+    }
   };
 
   return (
@@ -103,9 +114,10 @@ export default function SignIn() {
 
             <button
               type="submit"
-              className="w-full py-3.5 bg-[#1F2D16] hover:bg-[#2a3d1e] text-white font-bold rounded-xl shadow-lg shadow-green-900/20 transform active:scale-[0.98] transition-all"
+              disabled={isLoading}
+              className="w-full py-3.5 bg-[#1F2D16] hover:bg-[#2a3d1e] text-white font-bold rounded-xl shadow-lg shadow-green-900/20 transform active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Sign In
+              {isLoading ? "Signing In..." : "Sign In"}
             </button>
           </form>
         </div>
