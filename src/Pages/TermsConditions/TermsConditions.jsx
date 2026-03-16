@@ -131,33 +131,60 @@ export default function TermsConditions() {
     {
       title: "Policies and Agreements",
       content: (
-       <div>
-         <p>
-         The following agreements and policies are incorporated into these Terms and apply to all users of the Florle Platform:
-        </p>
-        <ul>
-            <li>
-                Terms of Use
-            </li>
-        </ul>
-       </div>
+        <div className="space-y-2">
+          <p>
+            The following agreements and policies are incorporated into these
+            Terms and apply to all users of the Florle Platform:
+          </p>
+          <ul className="list-disc pl-6 font-bold">
+            <li>Terms of Use</li>
+          </ul>
+          <p>
+            These Terms govern your use of any and all aspects of the Florle
+            Platform.
+          </p>
+          <ul className="list-disc pl-6 font-bold">
+            <li>Privacy Policy and Cookie Policy</li>
+          </ul>
+          <p>
+            Our Privacy Policy describes how we collect, use, and protect
+            personal information. By using the Florle Platform, you acknowledge
+            that the Privacy Policy applies to you, whether or not you have
+            created an account. Our Cookie Policy explains how we use cookies
+            and similar technologies.
+          </p>
+          <ul className="list-disc pl-6 font-bold">
+            <li>Acceptable Use Policy</li>
+          </ul>
+          <p>
+            You agree to comply with applicable laws and community standards
+            when using the Florle Platform, as further described in our
+            Acceptable Use Policy.
+          </p>
+          <ul className="list-disc pl-6 font-bold">
+            <li>Copyright & Trademark Policy</li>
+          </ul>
+          <p>
+            This policy explains how Florle handles intellectual property
+            complaints. Users who upload or submit content are subject to this
+            policy.
+          </p>
+        </div>
       ),
     },
     {
-      title: "6. Disclaimer of Warranties & Limitation of Liability",
+      title: "Additional Terms That May Apply",
       content: (
-        <div className="space-y-4">
+        <div className="space-y-2">
           <p>
-            The App, AI Features, content, and services are provided on an "AS
-            IS" and "AS AVAILABLE" basis. Florle LLC disclaims all warranties,
-            express or implied.
+            Depending on how you use the Florle Platform, additional agreements
+            may apply:
           </p>
-          <p>
-            To the fullest extent permitted by law, Florle LLC's total
-            cumulative liability shall not exceed the greater of $100 or the
-            amount paid by the User to the Company in the twelve (12) months
-            preceding the claim.
-          </p>
+          <ul className="list-disc pl-6 font-bold text-red-500">
+            <li>Florle Pro Terms & Conditions</li>
+          </ul>
+            <p className="text-red-500 font-medium">If you subscribe to or use Florle Pro, additional terms governing subscriptions, billing, professional tools, and related services apply to you.</p>
+      
         </div>
       ),
     },
