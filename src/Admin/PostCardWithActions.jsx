@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function PostCardWithActions({ post, onDelete, onPublish }) {
+export function PostCardWithActions({ post, onDelete, onPublish, onFlag }) {
   const statusConfig = {
     published: { label: "published", bg: "bg-[#4a6153]", text: "text-white" },
     flagged: { label: "flagged", bg: "bg-red-500", text: "text-white" },
@@ -9,17 +9,23 @@ export function PostCardWithActions({ post, onDelete, onPublish }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const cfg = statusConfig[post.status];
 
+  const formatDate = (dateString) => {
+    return new Date(dateString).toISOString().split("T")[0];
+  };
+
   return (
     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-200 p-5">
       <div className="flex gap-4">
         {/* Thumbnail */}
-        <div className="flex-shrink-0">
-          <img
-            src={post.image}
-            alt="post"
-            className="w-32 h-24 rounded-xl object-cover"
-          />
-        </div>
+        {post.image && (
+          <div className="flex-shrink-0">
+            <img
+              src={post.image}
+              alt="post"
+              className="w-32 h-24 rounded-xl object-cover"
+            />
+          </div>
+        )}
 
         {/* Content */}
         <div className="flex-1 min-w-0">
@@ -27,15 +33,17 @@ export function PostCardWithActions({ post, onDelete, onPublish }) {
             {/* Author info */}
             <div className="flex items-center gap-2.5">
               <img
-                src={post.avatar}
-                alt={post.author}
+                src={post.user_image || "https://via.placeholder.com/40"}
+                alt={post.user_name}
                 className="w-9 h-9 rounded-full object-cover"
               />
               <div>
                 <p className="text-sm font-semibold text-gray-900">
-                  {post.author}
+                  {post.user_name || "Anonymous"}
                 </p>
-                <p className="text-xs text-gray-400">{post.date}</p>
+                <p className="text-xs text-gray-400">
+                  {formatDate(post.created_at)}
+                </p>
               </div>
             </div>
 
@@ -66,28 +74,53 @@ export function PostCardWithActions({ post, onDelete, onPublish }) {
               {/* Action buttons shown on image 3 */}
               {menuOpen && (
                 <div className="absolute right-0 top-10 z-20 bg-white rounded-xl shadow-xl border border-gray-100 py-2 w-36">
-                  <button
-                    onClick={() => {
-                      onPublish(post.id);
-                      setMenuOpen(false);
-                    }}
-                    className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
-                  >
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth={1.8}
-                      className="w-4 h-4 text-gray-500"
+                  {post.status === "published" ? (
+                    <button
+                      onClick={() => {
+                        onFlag(post.id);
+                        setMenuOpen(false);
+                      }}
+                      className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                      />
-                    </svg>
-                    Publish
-                  </button>
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={1.8}
+                        className="w-4 h-4 text-gray-500"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 48.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5"
+                        />
+                      </svg>
+                      Flag
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        onPublish(post.id);
+                        setMenuOpen(false);
+                      }}
+                      className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={1.8}
+                        className="w-4 h-4 text-gray-500"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                        />
+                      </svg>
+                      Publish
+                    </button>
+                  )}
                   <button
                     onClick={() => {
                       onDelete(post.id);
@@ -117,12 +150,15 @@ export function PostCardWithActions({ post, onDelete, onPublish }) {
 
           {/* Post text */}
           <p className="text-sm text-gray-700 mb-3 leading-relaxed">
-            {post.text}
+            {post.description}
           </p>
 
           {/* Tags */}
           <div className="flex flex-wrap gap-2">
-            {post.tags.map((tag) => (
+            {(post.tags
+              ? post.tags.split(",").map((tag) => tag.trim())
+              : []
+            ).map((tag) => (
               <span
                 key={tag}
                 className="text-xs text-green-700 bg-green-50 px-2.5 py-1 rounded-full font-medium"
