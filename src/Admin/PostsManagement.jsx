@@ -1,5 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PostCardWithActions } from "./PostCardWithActions";
+import {
+  useDeletePostMutation,
+  useGetDashboardPostsQuery,
+  useUpdatePostStatusMutation,
+} from "../Api/dashboardApi";
 
 const initialPosts = [
   {
@@ -57,21 +62,30 @@ const statusConfig = {
   flagged: { label: "flagged", bg: "bg-red-500", text: "text-white" },
 };
 
-function PostCard({ post, onDelete, onFlag }) {
+function PostCard({ post, onDelete, onFlag, onPublish }) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const cfg = statusConfig[post.status];
+  const cfg = statusConfig[post.status] || { label: post.status || "Unknown", bg: "bg-gray-500", text: "text-white" };
+
+  const formatDate = (dateString) => {
+    if (!dateString) return "N/A";
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return "N/A";
+    return date.toISOString().split("T")[0];
+  };
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-200 p-5">
+    <div className="bg-white rounded-2xl transition-shadow duration-200 p-5">
       <div className="flex gap-4">
         {/* Thumbnail */}
-        <div className="flex-shrink-0">
-          <img
-            src={post.image}
-            alt="post"
-            className="w-32 h-24 rounded-xl object-cover"
-          />
-        </div>
+        {post.image && (
+          <div className="flex-shrink-0">
+            <img
+              src={post.image}
+              alt="post"
+              className="w-32 h-24 rounded-xl object-cover"
+            />
+          </div>
+        )}
 
         {/* Content */}
         <div className="flex-1 min-w-0">
@@ -79,15 +93,17 @@ function PostCard({ post, onDelete, onFlag }) {
             {/* Author info */}
             <div className="flex items-center gap-2.5">
               <img
-                src={post.avatar}
-                alt={post.author}
+                src={post.user_image || "https://via.placeholder.com/40"}
+                alt={post.user_name}
                 className="w-9 h-9 rounded-full object-cover"
               />
               <div>
                 <p className="text-sm font-semibold text-gray-900">
-                  {post.author}
+                  {post.user_name || "Anonymous"}
                 </p>
-                <p className="text-xs text-gray-400">{post.date}</p>
+                <p className="text-xs text-gray-400">
+                  {formatDate(post.created_at || post.date)}
+                </p>
               </div>
             </div>
 
@@ -118,28 +134,53 @@ function PostCard({ post, onDelete, onFlag }) {
               {/* Dropdown Menu */}
               {menuOpen && (
                 <div className="absolute right-0 top-10 z-20 bg-white rounded-xl shadow-xl border border-gray-100 py-1 w-36">
-                  <button
-                    onClick={() => {
-                      onFlag(post.id);
-                      setMenuOpen(false);
-                    }}
-                    className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
-                  >
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth={1.8}
-                      className="w-4 h-4 text-gray-500"
+                  {post.status === "published" ? (
+                    <button
+                      onClick={() => {
+                        onFlag(post.id);
+                        setMenuOpen(false);
+                      }}
+                      className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 48.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5"
-                      />
-                    </svg>
-                    Flag
-                  </button>
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={1.8}
+                        className="w-4 h-4 text-gray-500"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 48.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5"
+                        />
+                      </svg>
+                      Flag
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        onPublish(post.id);
+                        setMenuOpen(false);
+                      }}
+                      className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={1.8}
+                        className="w-4 h-4 text-gray-500"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                        />
+                      </svg>
+                      Publish
+                    </button>
+                  )}
                   <button
                     onClick={() => {
                       onDelete(post.id);
@@ -169,12 +210,17 @@ function PostCard({ post, onDelete, onFlag }) {
 
           {/* Post text */}
           <p className="text-sm text-gray-700 mb-3 leading-relaxed">
-            {post.text}
+            {post.description}
           </p>
 
           {/* Tags */}
           <div className="flex flex-wrap gap-2">
-            {post.tags.map((tag) => (
+            {(Array.isArray(post.tags)
+              ? post.tags
+              : typeof post.tags === 'string'
+              ? post.tags.split(",").map((tag) => tag.trim())
+              : []
+            ).map((tag) => (
               <span
                 key={tag}
                 className="text-xs text-green-700 bg-green-50 px-2.5 py-1 rounded-full font-medium"
@@ -189,42 +235,49 @@ function PostCard({ post, onDelete, onFlag }) {
   );
 }
 
-
-
 export default function PostsManagement() {
   const [posts, setPosts] = useState(initialPosts);
   const [searchTerm, setSearchTerm] = useState("");
   const [deleteModalPost, setDeleteModalPost] = useState(null);
 
-  const filteredPosts = posts.filter(
-    (post) =>
-      post.text.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.author.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
+  const { data: postsData, isLoading: postsLoading } =
+    useGetDashboardPostsQuery();
+  const [updatePostStatus] = useUpdatePostStatusMutation();
+  const [deletePost] = useDeletePostMutation();
+
+  useEffect(() => {
+    if (postsData?.data) {
+      setPosts(postsData.data);
+    }
+  }, [postsData]);
 
   const handleDelete = (id) => {
     setDeleteModalPost(id);
   };
 
-  const confirmDelete = () => {
-    setPosts(posts.filter((p) => p.id !== deleteModalPost));
-    setDeleteModalPost(null);
+  const confirmDelete = async () => {
+    try {
+      await deletePost(deleteModalPost).unwrap();
+      setDeleteModalPost(null);
+    } catch (error) {
+      console.error("Failed to delete post:", error);
+    }
   };
 
-  const handleFlag = (id) => {
-    setPosts(
-      posts.map((p) =>
-        p.id === id
-          ? { ...p, status: p.status === "flagged" ? "published" : "flagged" }
-          : p,
-      ),
-    );
+  const handleFlag = async (id) => {
+    try {
+      await updatePostStatus({ id, status: "flagged" }).unwrap();
+    } catch (error) {
+      console.error("Failed to flag post:", error);
+    }
   };
 
-  const handlePublish = (id) => {
-    setPosts(
-      posts.map((p) => (p.id === id ? { ...p, status: "published" } : p)),
-    );
+  const handlePublish = async (id) => {
+    try {
+      await updatePostStatus({ id, status: "published" }).unwrap();
+    } catch (error) {
+      console.error("Failed to publish post:", error);
+    }
   };
 
   return (
@@ -266,23 +319,16 @@ export default function PostsManagement() {
 
         {/* ── Posts List ── */}
         <div className="flex flex-col gap-4">
-          {filteredPosts.length === 0 ? (
+          {postsLoading ? (
+            <div className="text-center text-gray-400 py-16 bg-white rounded-2xl border border-gray-100">
+              Loading posts...
+            </div>
+          ) : posts.length === 0 ? (
             <div className="text-center text-gray-400 py-16 bg-white rounded-2xl border border-gray-100">
               No posts found.
             </div>
           ) : (
-            filteredPosts.map((post, index) => {
-              // Show different card type for demo (image 2 shows Flag/Delete, image 3 shows Publish/Delete)
-              if (index === 1) {
-                return (
-                  <PostCardWithActions
-                    key={post.id}
-                    post={post}
-                    onDelete={handleDelete}
-                    onPublish={handlePublish}
-                  />
-                );
-              }
+            posts.map((post) => {
               return (
                 <PostCard
                   key={post.id}

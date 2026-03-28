@@ -371,19 +371,7 @@ export default function AdminDashboard() {
                 No posts found.
               </div>
             ) : (
-              posts.map((post, index) => {
-                // Show different card type for demo (image 2 shows Flag/Delete, image 3 shows Publish/Delete)
-                if (index === 1) {
-                  return (
-                    <PostCardWithActions
-                      key={post.id}
-                      post={post}
-                      onDelete={handleDelete}
-                      onPublish={handlePublish}
-                      onFlag={handleFlag}
-                    />
-                  );
-                }
+              posts.map((post) => {
                 return (
                   <PostCard
                     key={post.id}
