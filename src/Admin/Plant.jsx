@@ -6,39 +6,28 @@ import AddPlantForm from "./AddPlant";
 import plant2 from '../assets/images/plant2.png';
 import plant3 from '../assets/images/plant3.png';
 import plant4 from '../assets/images/plant4.png';
+import { useGetPlantsQuery, useDeletePlantMutation } from "../Api/plantsApi";
 
 function Plant() {
-    const [plants, setPlants] = useState([
-        {
-            id: 1,
-            name: "English Rose",
-            scientificName: "Rosa anglica",
-            image: plant2,
-            tags: [{ name: "Flower", color: "bg-green-100 text-green-700" }],
-            zones: "Zones 5-9",
-            gardensCount: 254,
-        },
-        {
-            id: 2,
-            name: "Japanese Maple",
-            scientificName: "Acer palmatum",
-            image: plant4,
-            tags: [{ name: "Tree", color: "bg-green-100 text-green-700" }],
-            zones: "Zones 5-8",
-            gardensCount: 512,
-        },
-        {
-            id: 3,
-            name: "Lavender",
-            scientificName: "Lavandula angustifolia",
-            image: plant3,
-            tags: [{ name: "Shrub", color: "bg-green-100 text-green-700" }],
-            zones: "Zones 5-9",
-            gardensCount: 892,
-        },
-    ]);
-
     const [searchTerm, setSearchTerm] = useState("");
+    const [page, setPage] = useState(1);
+    const { data: plantsResponse, isLoading } = useGetPlantsQuery({ page, limit: 9, search: searchTerm });
+    const [deletePlantMutation] = useDeletePlantMutation();
+    
+    const apiPlants = plantsResponse?.plant || [];
+    const totalPages = plantsResponse?.total_pages || 1;
+
+    const plants = apiPlants.map(p => ({
+        id: p.id,
+        name: p.name || "",
+        scientificName: p.scientific_name || "",
+        image: p.image || plant2,
+        tags: [{ name: p.garden_type ? (p.garden_type.charAt(0).toUpperCase() + p.garden_type.slice(1).replace("_", " ")) : "Plant", color: "bg-green-100 text-green-700" }],
+        zones: p.sunlight || "Full Sun",
+        gardensCount: 0,
+        originalData: p
+    }));
+
     const [view, setView] = useState("list"); // 'list' or 'form'
     const [editingPlant, setEditingPlant] = useState(null);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -53,12 +42,33 @@ function Plant() {
             plant.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
             plant.scientificName.toLowerCase().includes(searchTerm.toLowerCase()),
     );
-    const confirmDelete = () => {
+
+    const getPageNumbers = () => {
+        const pages = [];
+        if (totalPages <= 5) {
+            for (let i = 1; i <= totalPages; i++) pages.push(i);
+        } else {
+            if (page <= 3) {
+                pages.push(1, 2, 3, 4, '...', totalPages);
+            } else if (page >= totalPages - 2) {
+                pages.push(1, '...', totalPages - 3, totalPages - 2, totalPages - 1, totalPages);
+            } else {
+                pages.push(1, '...', page - 1, page, page + 1, '...', totalPages);
+            }
+        }
+        return pages;
+    };
+
+    const confirmDelete = async () => {
         if (plantToDelete) {
-            setPlants(plants.filter(p => p.id !== plantToDelete.id));
-            toast.success("Plant deleted successfully!");
-            setIsDeleteModalOpen(false);
-            setPlantToDelete(null);
+            try {
+                await deletePlantMutation(plantToDelete.id).unwrap();
+                toast.success("Plant deleted successfully!");
+                setIsDeleteModalOpen(false);
+                setPlantToDelete(null);
+            } catch (err) {
+                toast.error("Failed to delete plant!");
+            }
         }
     };
 
@@ -107,7 +117,10 @@ function Plant() {
                             type="text"
                             placeholder="Search plants..."
                             value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
+                            onChange={(e) => {
+                                setSearchTerm(e.target.value);
+                                setPage(1);
+                            }}
                             className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2d5f3f]"
                         />
                     </div>
@@ -164,9 +177,7 @@ function Plant() {
                             </div>
 
                             <div className="border-t pt-3 border-gray-200 mt-5 flex items-center justify-between">
-                                <p className="text-sm text-gray-600">
-                                    Used in {plant.gardensCount} gardens
-                                </p>
+                              
 
                                 <button
                                     onClick={() => handleEditClick(plant)}
@@ -180,6 +191,44 @@ function Plant() {
                     </div>
                 ))}
             </div>
+
+            {/* Pagination Controls */}
+            {totalPages > 1 && (
+                <div className="flex justify-center items-center gap-2 mt-10 pb-10">
+                    <button
+                        onClick={() => setPage((p) => Math.max(1, p - 1))}
+                        disabled={page === 1}
+                        className="w-10 h-10 flex items-center justify-center text-gray-600 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
+                    </button>
+                    
+                    {getPageNumbers().map((num, i) => (
+                        <button
+                            key={i}
+                            onClick={() => typeof num === "number" ? setPage(num) : null}
+                            disabled={typeof num !== "number"}
+                            className={`w-10 h-10 flex items-center justify-center text-sm font-medium rounded-lg transition-colors ${
+                                num === page 
+                                    ? "bg-[#1F2D16] text-white border border-[#1F2D16]" 
+                                    : typeof num !== "number" 
+                                        ? "text-gray-500 cursor-default bg-transparent"
+                                        : "text-gray-600 bg-white border border-gray-200 hover:bg-gray-50"
+                            }`}
+                        >
+                            {num}
+                        </button>
+                    ))}
+
+                    <button
+                        onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                        disabled={page === totalPages}
+                        className="w-10 h-10 flex items-center justify-center text-gray-600 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
+                    </button>
+                </div>
+            )}
 
             {/* Delete Confirmation Modal */}
             {isDeleteModalOpen && (

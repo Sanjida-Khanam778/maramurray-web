@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
-
+import { useAddPlantMutation, useGetPlantDetailQuery } from "../Api/plantsApi";
 
 export default function AddPlantForm({ initialData, onBack }) {
+    const { data: detailResponse, isLoading: isDetailLoading } = useGetPlantDetailQuery(initialData?.id, {
+        skip: !initialData?.id,
+    });
     const [formData, setFormData] = useState({
         commonName: initialData?.name || "",
         scientificName: initialData?.scientificName || "",
@@ -15,13 +18,44 @@ export default function AddPlantForm({ initialData, onBack }) {
         season: "",
         difficulty: "",
         careGuide: "",
-        bloomSeason: "",
+        bloomSeason: [],
         addLink: "",
         tags: initialData?.tags?.map(t => t.name).join(", ") || "",
+        mainImageUrl: initialData?.image || "",
     });
 
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [isDragging, setIsDragging] = useState(false);
+
+    useEffect(() => {
+        if (detailResponse) {
+            const d = detailResponse;
+            const bloomSeasons = [];
+            if (d.bloom_spring) bloomSeasons.push("Spring");
+            if (d.bloom_summer) bloomSeasons.push("Summer");
+            if (d.bloom_fall) bloomSeasons.push("Fall");
+            if (d.bloom_winter) bloomSeasons.push("Winter");
+
+            setFormData(prev => ({
+                ...prev,
+                commonName: d.common_name || "",
+                scientificName: d.scientific_name || "",
+                plantType: d.plant_type || "",
+                description: d.description || "",
+                sunlight: d.sunlight || "",
+                water: d.water || "",
+                spacing: d.spacing || "",
+                growthSize: d.growth_size || "",
+                season: d.season || "",
+                difficulty: d.difficulty || "",
+                careGuide: d.care_guide || "",
+                bloomSeason: bloomSeasons,
+                addLink: d.shopping_link || "",
+                tags: d.tags || "",
+                mainImageUrl: d.main_image_url || d.image || "",
+            }));
+        }
+    }, [detailResponse]);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -39,28 +73,76 @@ export default function AddPlantForm({ initialData, onBack }) {
         setSelectedFiles([...selectedFiles, ...files]);
     };
 
-    const handleSubmit = () => {
-        console.log("Form data:", formData);
-        console.log("Files:", selectedFiles);
-        toast.success("Plant added successfully!");
-        setFormData({
-            commonName: "",
-            scientificName: "",
-            plantType: "",
-            description: "",
-            sunlight: "",
-            water: "",
-            spacing: "",
-            growZone: "",
-            season: "",
-            difficulty: "",
-            careGuide: "",
-            bloomSeason: "",
-            addLink: "",
-            tags: "",
-        });
-        setSelectedFiles([]);
+    const [addPlant, { isLoading }] = useAddPlantMutation();
+
+    const handleSubmit = async () => {
+        try {
+            const fd = new FormData();
+            fd.append("common_name", formData.commonName);
+            fd.append("scientific_name", formData.scientificName);
+            fd.append("plant_type", formData.plantType);
+            fd.append("description", formData.description);
+            
+            if (selectedFiles.length > 0) {
+                // Assuming first file or loop through them
+                fd.append("image", selectedFiles[0]);
+            }
+            
+            fd.append("main_image_url", "");
+            fd.append("sunlight", formData.sunlight);
+            fd.append("water", formData.water);
+            fd.append("spacing", formData.spacing);
+            fd.append("growth_size", formData.growthSize || formData.growZone || "");
+            fd.append("season", formData.season);
+            fd.append("difficulty", formData.difficulty);
+            fd.append("care_guide", formData.careGuide);
+
+            fd.append("bloom_spring", formData.bloomSeason.includes("Spring"));
+            fd.append("bloom_summer", formData.bloomSeason.includes("Summer"));
+            fd.append("bloom_fall", formData.bloomSeason.includes("Fall"));
+            fd.append("bloom_winter", formData.bloomSeason.includes("Winter"));
+
+            fd.append("shopping_link", formData.addLink);
+            fd.append("tags", formData.tags);
+
+            const res = await addPlant(fd).unwrap();
+            toast.success(res?.message || "Plant added successfully!");
+            
+            setFormData({
+                commonName: "",
+                scientificName: "",
+                plantType: "",
+                description: "",
+                sunlight: "",
+                water: "",
+                spacing: "",
+                growZone: "",
+                growthSize: "",
+                season: "",
+                difficulty: "",
+                careGuide: "",
+                bloomSeason: [],
+                addLink: "",
+                tags: "",
+                mainImageUrl: "",
+            });
+            setSelectedFiles([]);
+        } catch (error) {
+            console.error(error);
+            toast.error(error?.data?.message || "Failed to add plant");
+        }
     };
+
+    if (isDetailLoading) {
+        return (
+            <div className="bg-[#f3f2ee] min-h-screen p-6 md:p-10 flex items-center justify-center">
+                <div className="flex flex-col items-center">
+                    <div className="w-10 h-10 border-4 border-[#1a3a2a] border-t-transparent rounded-full animate-spin"></div>
+                    <p className="mt-4 text-gray-500 font-medium">Loading plant details...</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className=" bg-[#f3f2ee] p-6 md:p-10">
@@ -150,7 +232,6 @@ export default function AddPlantForm({ initialData, onBack }) {
                                 </svg>
                             </div>
                             <p className="text-sm text-gray-600 mb-1">Drop images here or click to upload</p>
-                            <p className="text-xs text-gray-400 mb-4">Max size: 5MB • JPG, PNG, GIF, WebP allowed</p>
                             <input
                                 type="file"
                                 id="file-upload"
@@ -166,14 +247,38 @@ export default function AddPlantForm({ initialData, onBack }) {
                                 Choose Files
                             </label>
                         </div>
-                        {selectedFiles.length > 0 && (
-                            <div className="mt-4 text-left">
-                                <p className="text-xs text-gray-500 mb-2">{selectedFiles.length} file(s) selected:</p>
+                        {selectedFiles.length > 0 ? (
+                            <div className="mt-4 flex flex-wrap gap-4 justify-center">
                                 {selectedFiles.map((file, i) => (
-                                    <p key={i} className="text-xs text-gray-600">• {file.name}</p>
+                                    <div key={i} className="relative inline-block">
+                                        <img src={URL.createObjectURL(file)} alt="Preview" className="w-32 h-32 object-cover rounded-xl border border-gray-200 shadow-sm" />
+                                        <button 
+                                            type="button" 
+                                            onClick={(e) => { 
+                                                e.stopPropagation(); 
+                                                setSelectedFiles(prev => prev.filter((_, idx) => idx !== i));
+                                            }} 
+                                            className="absolute -top-2 -right-2 bg-white border border-gray-200 text-gray-500 hover:text-red-500 rounded-full p-1 shadow-sm transition-colors"
+                                        >
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} className="w-3.5 h-3.5"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                                        </button>
+                                    </div>
                                 ))}
                             </div>
-                        )}
+                        ) : formData.mainImageUrl ? (
+                            <div className="mt-4 flex justify-center">
+                                <div className="relative inline-block">
+                                    <img src={formData.mainImageUrl} alt="Plant" className="w-32 h-32 object-cover rounded-xl border border-gray-200 shadow-sm" />
+                                    <button 
+                                        type="button" 
+                                        onClick={(e) => { e.stopPropagation(); setFormData(prev => ({...prev, mainImageUrl: ""})) }} 
+                                        className="absolute -top-2 -right-2 bg-white border border-gray-200 text-gray-500 hover:text-red-500 rounded-full p-1 shadow-sm transition-colors"
+                                    >
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} className="w-3.5 h-3.5"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        ) : null}
                     </div>
                 </div>
 
@@ -189,14 +294,17 @@ export default function AddPlantForm({ initialData, onBack }) {
                                 </svg>
                                 Sunlight
                             </label>
-                            <input
-                                type="text"
+                            <select
                                 name="sunlight"
-                                placeholder="Water"
                                 value={formData.sunlight}
                                 onChange={handleChange}
                                 className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent"
-                            />
+                            >
+                                <option value="">Select Sunlight</option>
+                                <option value="full_sun">Full Sun</option>
+                                <option value="partial_sun">Partial Sun</option>
+                                <option value="full_shade">Full Shade</option>
+                            </select>
                         </div>
                         <div>
                             <label className="block text-xs font-medium text-gray-600 mb-1.5 flex items-center gap-1.5">
@@ -219,12 +327,12 @@ export default function AddPlantForm({ initialData, onBack }) {
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 6h.008v.008H6V6Z" />
                                 </svg>
-                                Difficulty
+                                Water
                             </label>
                             <input
                                 type="text"
-                                name="difficulty"
-                                value={formData.difficulty}
+                                name="water"
+                                value={formData.water}
                                 onChange={handleChange}
                                 className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent"
                             />
@@ -238,12 +346,12 @@ export default function AddPlantForm({ initialData, onBack }) {
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
                                 </svg>
-                                Grow Zone
+                                Growth Size
                             </label>
                             <input
                                 type="text"
-                                name="growZone"
-                                value={formData.growZone}
+                                name="growthSize"
+                                value={formData.growthSize}
                                 onChange={handleChange}
                                 className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent"
                             />
@@ -273,7 +381,7 @@ export default function AddPlantForm({ initialData, onBack }) {
                             </label>
                             <input
                                 type="text"
-                                name="difficulty2"
+                                name="difficulty"
                                 value={formData.difficulty}
                                 onChange={handleChange}
                                 className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent"
@@ -299,8 +407,14 @@ export default function AddPlantForm({ initialData, onBack }) {
                             {["Spring", "Summer", "Fall", "Winter"].map((season) => (
                                 <button
                                     key={season}
-                                    onClick={() => setFormData({ ...formData, bloomSeason: season })}
-                                    className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${formData.bloomSeason === season
+                                    type="button"
+                                    onClick={() => setFormData((prev) => ({
+                                        ...prev,
+                                        bloomSeason: prev.bloomSeason.includes(season)
+                                            ? prev.bloomSeason.filter(s => s !== season)
+                                            : [...prev.bloomSeason, season]
+                                    }))}
+                                    className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${formData.bloomSeason.includes(season)
                                         ? "bg-green-500 text-white"
                                         : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                                         }`}
@@ -344,12 +458,17 @@ export default function AddPlantForm({ initialData, onBack }) {
                 <div className="flex gap-3 pt-6 border-t border-gray-100">
                     <button
                         onClick={handleSubmit}
-                        className="flex-1 flex items-center justify-center gap-2 px-6 py-2.5 bg-[#1a3a2a] hover:bg-[#14301f] text-white font-semibold rounded-lg transition-colors"
+                        disabled={isLoading}
+                        className={`flex-1 flex items-center justify-center gap-2 px-6 py-2.5 bg-[#1a3a2a] hover:bg-[#14301f] text-white font-semibold rounded-lg transition-colors ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
                     >
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-4 h-4">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
-                        </svg>
-                        {initialData ? "Save Changes" : "Upload"}
+                        {isLoading ? (
+                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        ) : (
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-4 h-4">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
+                            </svg>
+                        )}
+                        {isLoading ? "Saving..." : initialData ? "Save Changes" : "Upload"}
                     </button>
                     <button
                         onClick={onBack}

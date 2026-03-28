@@ -70,7 +70,7 @@ export default function UsersManagement() {
   };
 
   // Map API data to component format
-  const users =
+  let users =
     usersData?.data?.map((user) => ({
       id: user.id,
       name: user.full_name || user.email.split("@")[0], // fallback if full_name empty
@@ -87,6 +87,16 @@ export default function UsersManagement() {
       phone: "+1 (555) 123-4567", // placeholder
       lastActive: "Recently", // placeholder
     })) || [];
+
+  if (statusFilter) {
+      users = users.filter((u) => u.status.toLowerCase() === statusFilter.toLowerCase());
+  }
+  if (searchTerm) {
+      const lowerSearch = searchTerm.toLowerCase();
+      users = users.filter(
+          (u) => u.name.toLowerCase().includes(lowerSearch) || u.email.toLowerCase().includes(lowerSearch)
+      );
+  }
 
   const totalPages = usersData?.total_pages || 1;
 
@@ -167,13 +177,19 @@ export default function UsersManagement() {
                 type="text"
                 placeholder="Search users..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e) => {
+                    setSearchTerm(e.target.value);
+                    setCurrentPage(1);
+                }}
                 className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent"
               />
             </div>
             <select
               value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
+              onChange={(e) => {
+                  setStatusFilter(e.target.value);
+                  setCurrentPage(1);
+              }}
               className="px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-400 appearance-none cursor-pointer min-w-[140px]"
             >
               <option value="">All Status</option>
