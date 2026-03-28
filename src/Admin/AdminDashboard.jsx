@@ -322,7 +322,7 @@ export default function AdminDashboard() {
   const stats = getStats();
 
   return (
-    <div className="h-screen bg-[#f3f2ee] p-6 md:p-10 font-sans">
+    <div className="bg-[#f3f2ee] p-6 md:p-10">
       <div className="mx-auto">
         {/* ── Header ── */}
         <div className="mb-8">
