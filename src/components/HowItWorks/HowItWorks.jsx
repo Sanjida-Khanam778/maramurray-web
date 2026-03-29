@@ -15,44 +15,6 @@ import bgImage2 from "../../assets/images/bg2.png";
 import leaf from "../../assets/images/leaf.png";
 
 export default function HowItWorks() {
-  const steps = [
-    {
-      number: "1",
-      title: "Upload",
-      description: "take a pic of your garden or use one from your library",
-      icon: Camera,
-      position: "left",
-    },
-    {
-      number: "2",
-      title: "Measure",
-      description: "Use the measuring tool to set the boarders of your garden",
-      icon: Sparkles,
-      position: "right",
-    },
-    {
-      number: "3",
-      title: "Select",
-      description: "Choose your favorite plants",
-      icon: MousePointer2,
-      position: "left",
-    },
-    {
-      number: "4",
-      title: "Design",
-      description: "Create your own design or let Florle design for you",
-      icon: ShoppingCart,
-      position: "right",
-    },
-    {
-      number: "5",
-      title: "Get to Work",
-      description:
-        "Print your plant list, necessary tools and calendar and bring your garden design to life",
-      icon: MousePointer2,
-      position: "left",
-    },
-  ];
 
   return (
     <section
@@ -90,13 +52,7 @@ export default function HowItWorks() {
                 <div
                   className={`bg-gradient-to-br text-right from-[#71B25E]/70 to-[#1D2915] rounded-[30px] p-8 md:p-10 shadow-2xl relative min-h-[160px] flex flex-col justify-center`}
                 >
-                  {/* Step Number */}
-                  <div className="absolute -top-4 left-2 w-8 h-8 bg-white p-6 text-[#3D5A2D] border border-black/70 rounded-full flex items-center justify-center font-bold text-sm shadow-md">
-                    <span className="bg-[#00A63E] text-white p-3 flex items-center justify-center w-full h-full rounded-full">
-                      {" "}
-                      1
-                    </span>
-                  </div>
+             
 
                   <h3 className="text-3xl font-medium text-white mb-3">
                     Upload
@@ -143,14 +99,7 @@ export default function HowItWorks() {
                 <div
                   className={`bg-gradient-to-br text-right from-[#71B25E]/70 to-[#1D2915] rounded-[30px] p-8 md:p-10 shadow-2xl relative min-h-[160px] flex flex-col justify-center`}
                 >
-                  {/* Step Number */}
-                  <div className="absolute -top-4 left-2 w-8 h-8 bg-white p-6 text-[#3D5A2D] border border-black/70 rounded-full flex items-center justify-center font-bold text-sm shadow-md">
-                    <span className="bg-[#00A63E] text-white p-3 flex items-center justify-center w-full h-full rounded-full">
-                      {" "}
-                      2
-                    </span>
-                  </div>
-
+                
                   <h3 className="text-3xl font-medium text-white mb-3">
                     Measure
                   </h3>
@@ -167,13 +116,7 @@ export default function HowItWorks() {
                 <div
                   className={`bg-gradient-to-br from-[#71B25E]/70 to-[#1D2915] rounded-[30px] p-8 md:p-10 shadow-2xl relative min-h-[160px] flex flex-col justify-center`}
                 >
-                  {/* Step Number */}
-                  <div className="absolute -top-4 left-2 w-8 h-8 bg-white p-6 text-[#3D5A2D] border border-black/70 rounded-full flex items-center justify-center font-bold text-sm shadow-md">
-                    <span className="bg-[#00A63E] text-white p-3 flex items-center justify-center w-full h-full rounded-full">
-                      {" "}
-                      3
-                    </span>
-                  </div>
+           
 
                   <h3 className="text-3xl font-medium text-white mb-3">
                     Select
@@ -220,13 +163,7 @@ export default function HowItWorks() {
                 <div
                   className={`bg-gradient-to-br from-[#71B25E]/70 to-[#1D2915] rounded-[30px] p-8 md:p-10 shadow-2xl relative min-h-[160px] flex flex-col justify-center`}
                 >
-                  {/* Step Number */}
-                  <div className="absolute -top-4 left-2 w-8 h-8 bg-white p-6 text-[#3D5A2D] border border-black/70 rounded-full flex items-center justify-center font-bold text-sm shadow-md">
-                    <span className="bg-[#00A63E] text-white p-3 flex items-center justify-center w-full h-full rounded-full">
-                      {" "}
-                      4
-                    </span>
-                  </div>
+                
 
                   <h3 className="text-3xl font-medium text-white mb-3">
                     Design
@@ -245,13 +182,7 @@ export default function HowItWorks() {
                 <div
                   className={`bg-gradient-to-br from-[#71B25E]/70 to-[#1D2915] rounded-[30px] p-8 md:p-10 shadow-2xl relative min-h-[160px] flex flex-col justify-center`}
                 >
-                  {/* Step Number */}
-                  <div className="absolute -top-4 left-2 w-8 h-8 bg-white p-6 text-[#3D5A2D] border border-black/70 rounded-full flex items-center justify-center font-bold text-sm shadow-md">
-                    <span className="bg-[#00A63E] text-white p-3 flex items-center justify-center w-full h-full rounded-full">
-                      {" "}
-                      5
-                    </span>
-                  </div>
+               
 
                   <h3 className="text-3xl font-medium text-white mb-3">
                     Get to Work

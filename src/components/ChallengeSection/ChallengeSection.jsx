@@ -1,13 +1,13 @@
 import { useState } from "react";
 import leaf from '../../assets/images/leaf3.png';
 import { BadgeDollarSign, Brain, Clock3 } from "lucide-react";
-
+import icon1 from "../../assets/images/icon1.png"
+import icon2 from "../../assets/images/icon2.png"
+import icon3 from "../../assets/images/icon3.png"
 const challenges = [
   {
     id: 1,
-    icon: (
-   <BadgeDollarSign />
-    ),
+    icon: icon1,
     iconBg: "bg-[#FEE2E2]",
     title: "Prohibitive Costs",
     description:
@@ -15,19 +15,15 @@ const challenges = [
   },
   {
     id: 2,
-    icon: (
-     <Brain />
-    ),
+    icon: icon2,
     iconBg: "bg-[#FFEDD5]",
-    title: "Complexity Overload",
+    title: "Brain Power Overload",
     description:
       "Understanding soil types, sunlight zones, and plant pairings requires botany knowledge that most homeowners simply don't have time to learn.",
   },
   {
     id: 3,
-    icon: (
-     <Clock3 />
-    ),
+    icon: icon3,
     iconBg: "bg-[#DBEAFE]",
     title: "Time Consuming",
     description:
@@ -47,8 +43,8 @@ export default function ChallengeSection() {
           <p className="text-sm font-bold tracking-[0.2em] uppercase text-[#3A5A40] mb-3">
             The Challenge
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
-            Why is gardening so hard?
+          <h2 className="text-4xl md:text-4xl font-bold text-gray-900 leading-tight">
+            Why is creating a beautiful garden so hard?
           </h2>
         </div>
 
@@ -67,19 +63,12 @@ export default function ChallengeSection() {
                   ? "shadow-2xl -translate-y-2 border-gray-200"
                   : "shadow-sm"
                 }
-              `}
+                `}
             >
               {/* Icon */}
-              <div
-                className={`
-                  w-14 h-14 rounded-full flex items-center justify-center mb-8
-                  ${item.iconBg}
-                  transition-transform duration-300
-                  ${hoveredId === item.id ? "scale-110" : "scale-100"}
-                `}
-              >
-                {item.icon}
-              </div>
+             
+                <img className="mb-6" src={item.icon} alt="" />
+             
 
               {/* Title */}
               <h3 className="text-xl font-extrabold text-gray-900 mb-3">
@@ -97,11 +86,14 @@ export default function ChallengeSection() {
                   absolute bottom-0 left-8 right-8 h-0.5 rounded-full bg-gradient-to-r from-green-300 to-emerald-400
                   transition-opacity duration-300
                   ${hoveredId === item.id ? "opacity-100" : "opacity-0"}
-                `}
+                  `}
               />
             </div>
           ))}
         </div>
+                  <h2 className="text-4xl md:text-4xl font-bold text-center mt-12 text-gray-900 leading-tight">
+                At Florle we believe that it doesn't have to be.
+                  </h2>
       </div>
     </section>
   );

@@ -28,7 +28,6 @@ export default function GardenTips() {
 
     return (
         <section className="py-16 px-4 sm:px-6 lg:px-8 relative">
-            <img className="absolute -bottom-36 left-0" src={bg5} alt="" />
             <img className="absolute -top-10 right-0" src={bg4} alt="" />
             <div className="max-w-6xl mx-auto">
                 {/* Header */}

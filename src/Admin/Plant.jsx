@@ -12,7 +12,7 @@ function Plant() {
     const [searchTerm, setSearchTerm] = useState("");
     const [page, setPage] = useState(1);
     const { data: plantsResponse, isLoading } = useGetPlantsQuery({ page, limit: 9, search: searchTerm });
-    const [deletePlantMutation] = useDeletePlantMutation();
+    const [deletePlantMutation, { isLoading: isDeleting }] = useDeletePlantMutation();
     
     const apiPlants = plantsResponse?.plant || [];
     const totalPages = plantsResponse?.total_pages || 1;
@@ -127,9 +127,22 @@ function Plant() {
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredPlants.map((plant) => (
-                    <div
+            {isLoading ? (
+                <div className="flex justify-center items-center py-24">
+                    <div className="animate-spin rounded-full h-12 w-12 border-4 border-[#1F2D16] border-t-transparent shadow-sm"></div>
+                </div>
+            ) : filteredPlants.length === 0 ? (
+                <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-16 text-center">
+                    <div className="bg-gray-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Search className="text-gray-400" size={24} />
+                    </div>
+                    <h3 className="text-lg font-bold text-gray-900 mb-1">No plants found</h3>
+                    <p className="text-gray-500 text-sm">We couldn't find any plants matching your search.</p>
+                </div>
+            ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {filteredPlants.map((plant) => (
+                        <div
                         key={plant.id}
                         className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
                     >
@@ -190,7 +203,8 @@ function Plant() {
                         </div>
                     </div>
                 ))}
-            </div>
+                </div>
+            )}
 
             {/* Pagination Controls */}
             {totalPages > 1 && (
@@ -238,18 +252,25 @@ function Plant() {
                         <p className="text-gray-500 mb-4 leading-relaxed">
                             This will permanently delete this Plant. This action cannot be undone.
                         </p>
-                        <div className="flex justify-end gap-3">
+                        <div className="flex justify-end gap-3 mt-2">
                             <button
                                 onClick={() => setIsDeleteModalOpen(false)}
-                                className="px-6 py-1 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-all hover:scale-105"
+                                disabled={isDeleting}
+                                className="px-6 py-2 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                             >
                                 Cancel
                             </button>
                             <button
                                 onClick={confirmDelete}
-                                className="px-6 py-1 bg-[#FF0000] text-white font-semibold rounded-xl hover:bg-red-700 transition-all hover:scale-105 shadow-lg shadow-red-200"
+                                disabled={isDeleting}
+                                className="px-6 py-2 bg-[#FF0000] text-white font-semibold rounded-xl hover:bg-red-600 transition-all hover:scale-105 shadow-lg shadow-red-200 disabled:opacity-75 disabled:cursor-not-allowed disabled:hover:scale-100 flex justify-center items-center gap-2 min-w-[100px]"
                             >
-                                Delete
+                                {isDeleting ? (
+                                    <>
+                                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                                        <span>Deleting...</span>
+                                    </>
+                                ) : "Delete"}
                             </button>
                         </div>
                     </div>

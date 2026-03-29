@@ -50,12 +50,10 @@ export default function TestimonialsSection() {
             <div className="max-w-7xl mx-auto relative z-10">
                 {/* Header */}
                 <div className="text-center mb-12">
-                    <h2 className="text-4xl md:text-5xl text-white mb-4">
-                        What They Say
+                    <h2 className="text-2xl md:text-5xl text-white mb-4">
+                     Check out what our <br /> Florle community is saying
                     </h2>
-                    <p className="text-lg text-white/80 max-w-2xl mx-auto">
-                       Check out what our Florle community is saying
-                    </p>
+                   
                 </div>
 
                 {/* Testimonials Grid */}

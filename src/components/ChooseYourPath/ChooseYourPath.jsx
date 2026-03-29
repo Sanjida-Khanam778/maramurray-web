@@ -46,7 +46,7 @@ export default function ChooseYourPath() {
     ];
 
     return (
-        <section style={{ backgroundImage: `url(${bg1})` }} className="py-16 px-4 md:px-8 bg-no-repeat">
+        <section className="py-16 px-4 md:px-8 bg-no-repeat">
             <div className="max-w-6xl mx-auto">
                 {/* Header */}
                 <div className="text-center mb-12">
