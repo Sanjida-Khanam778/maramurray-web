@@ -1,58 +1,12 @@
-import React from 'react';
 import aboutBG from '../../assets/images/aboutBG.png';
 import bg8 from '../../assets/images/bg8.png';
-import quotation from '../../assets/images/quotation.png';
-import leaf4 from '../../assets/images/leaf4.png';
-import leaf5 from '../../assets/images/leaf5.png';
-import { Leaf, Users, ShieldCheck, Heart, GraduationCap, Lightbulb, CircleCheckBig } from 'lucide-react';
 import ChallengeSection from '../../components/ChallengeSection/ChallengeSection';
-import { FaUsers } from 'react-icons/fa';
-import { LiaCanadianMapleLeaf } from 'react-icons/lia';
-import StatsBanner from '../../components/StatsBanner/StatsBanner';
 import CTADownload from '../../components/CTADownload/CTADownload';
 
 export default function About() {
-    const values = [
-        {
-            title: "Sustainability First",
-            description: "We prioritize native plants and water-wise designs to support local ecosystems.",
-            icon: Leaf,
-            color: "bg-green-100 text-green-600"
-        },
-        {
-            title: "Education",
-            description: "Building a network of green thumbs sharing seeds, tips, and inspiration.",
-            icon: GraduationCap,
-            color: "bg-blue-100 text-blue-600"
-        },
-        {
-            title: "Community",
-            description: "Our AI-powered designs are backed by horticultural insights to ensure your garden's success.",
-            icon: FaUsers,
-            color: "bg-amber-100 text-amber-600"
-        },
-        {
-            title: "Innovation",
-            description: "Leveraging cutting-edge AI to solve age-old landscaping headaches.",
-            icon: Lightbulb,
-            color: "bg-red-100 text-red-600"
-        },
-        {
-            title: "Wellness",
-            description: "Believing that time spent in nature improves mental and physical health.",
-            icon: LiaCanadianMapleLeaf,
-            color: "bg-amber-100 text-amber-600"
-        },
-        {
-            title: "Transparency",
-            description: "No hidden contractor fees. Clear pricing for plants and materials upfront.",
-            icon: ShieldCheck,
-            color: "bg-red-100 text-red-600"
-        }
-    ];
 
     return (
-        <div className='font-bricolage bg-[#F8F8F8] min-h-screen font-bricolage'>
+        <div className='font-bricolage bg-[#F8F8F8] min-h-screen'>
             {/* Hero Section */}
             <div
                 className="relative h-[90vh] bg-cover bg-center flex items-center justify-center"
