@@ -9,17 +9,23 @@ export const usersApi = api.injectEndpoints({
       }),
       providesTags: ["users"],
     }),
-    updateUserStatus: builder.mutation({
-      query: ({ id, status }) => ({
-        url: `accounts/users/${id}/status/`,
+    deactivateUser: builder.mutation({
+      query: (id) => ({
+        url: `accounts/users/${id}/deactivate/`,
         method: "PATCH",
-        body: { status },
+      }),
+      invalidatesTags: ["users"],
+    }),
+    activateUser: builder.mutation({
+      query: (id) => ({
+        url: `accounts/users/${id}/activate/`,
+        method: "PATCH",
       }),
       invalidatesTags: ["users"],
     }),
     deleteUser: builder.mutation({
       query: (id) => ({
-        url: `accounts/users/${id}/`,
+        url: `accounts/users/${id}/delete/`,
         method: "DELETE",
       }),
       invalidatesTags: ["users"],
@@ -35,7 +41,8 @@ export const usersApi = api.injectEndpoints({
 
 export const {
   useGetUsersQuery,
-  useUpdateUserStatusMutation,
+  useDeactivateUserMutation,
+  useActivateUserMutation,
   useDeleteUserMutation,
   useGetUserDetailQuery,
 } = usersApi;

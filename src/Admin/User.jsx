@@ -3,7 +3,8 @@ import toast from "react-hot-toast";
 import {
   useGetUsersQuery,
   useGetUserDetailQuery,
-  useUpdateUserStatusMutation,
+  useDeactivateUserMutation,
+  useActivateUserMutation,
   useDeleteUserMutation,
 } from "../Api/usersApi";
 
@@ -16,6 +17,9 @@ export default function UsersManagement() {
   const [selectedUser, setSelectedUser] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editUserId, setEditUserId] = useState(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [userToDelete, setUserToDelete] = useState(null);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -34,7 +38,8 @@ export default function UsersManagement() {
     status: statusFilter.toLowerCase(),
   });
 
-  const [updateUserStatus] = useUpdateUserStatusMutation();
+  const [deactivateUser] = useDeactivateUserMutation();
+  const [activateUser] = useActivateUserMutation();
   const [deleteUser] = useDeleteUserMutation();
 
   const {
@@ -49,23 +54,46 @@ export default function UsersManagement() {
 
   const handleDeactivateUser = async (id) => {
     try {
-      await updateUserStatus({ id, status: "inactive" }).unwrap();
+      await deactivateUser(id).unwrap();
       toast.success("User deactivated successfully");
       setOpenDropdown(null);
     } catch (error) {
-      toast.error("Failed to deactivate user");
+      toast.error(error?.data?.error || error?.error || error?.data?.detail || "Failed to deactivate user");
     }
   };
 
-  const handleDeleteUser = async (id) => {
-    if (window.confirm("Are you sure you want to delete this user?")) {
-      try {
-        await deleteUser(id).unwrap();
-        toast.success("User deleted successfully");
-        setOpenDropdown(null);
-      } catch (error) {
-        toast.error("Failed to delete user");
+  const handleActivateUser = async (id) => {
+    try {
+      await activateUser(id).unwrap();
+      toast.success("User activated successfully");
+      setOpenDropdown(null);
+    } catch (error) {
+      toast.error(error?.data?.message || error?.data?.error || error?.error || error?.data?.detail || "Failed to activate user");
+    }
+  };
+
+  const handleDeleteClick = (id) => {
+    setUserToDelete(id);
+    setIsDeleteModalOpen(true);
+    setOpenDropdown(null);
+  };
+
+  const confirmDelete = async () => {
+    if (!userToDelete) return;
+    setIsDeleting(true);
+    try {
+      await deleteUser(userToDelete).unwrap();
+      toast.success("User deleted successfully");
+      setIsDeleteModalOpen(false);
+      setUserToDelete(null);
+      if (selectedUserId === userToDelete) {
+        setSelectedUser(null);
+        setSelectedUserId(null);
       }
+    } catch (error) {
+      toast.error(error?.data?.error || error?.error || error?.data?.detail || "Failed to delete user");
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -339,28 +367,46 @@ export default function UsersManagement() {
                                 View Details
                               </button>
 
-                              <button
-                                onClick={() => handleDeactivateUser(user.id)}
-                                className="w-full text-left px-4 py-2.5 text-sm text-orange-600 hover:bg-orange-50 flex items-center gap-2"
-                              >
-                                <svg
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  strokeWidth={1.8}
-                                  className="w-4 h-4"
+                              {user.status === "Inactive" ? (
+                                <button
+                                  onClick={() => handleActivateUser(user.id)}
+                                  className="w-full text-left px-4 py-2.5 text-sm text-green-600 hover:bg-green-50 flex items-center gap-2"
                                 >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636"
-                                  />
-                                </svg>
-                                Deactivate
-                              </button>
+                                  <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth={1.8}
+                                    className="w-4 h-4"
+                                  >
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                  </svg>
+                                  Activate
+                                </button>
+                              ) : (
+                                <button
+                                  onClick={() => handleDeactivateUser(user.id)}
+                                  className="w-full text-left px-4 py-2.5 text-sm text-orange-600 hover:bg-orange-50 flex items-center gap-2"
+                                >
+                                  <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth={1.8}
+                                    className="w-4 h-4"
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636"
+                                    />
+                                  </svg>
+                                  Deactivate
+                                </button>
+                              )}
                               <div className="border-t border-gray-100 my-1" />
                               <button
-                                onClick={() => handleDeleteUser(user.id)}
+                                onClick={() => handleDeleteClick(user.id)}
                                 className="w-full text-left px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
                               >
                                 <svg
@@ -557,27 +603,45 @@ export default function UsersManagement() {
                       </div>
                          {/* Action Buttons */}
                     <div className="flex flex-col gap-2 min-w-[160px]">
-                      <button
-                        onClick={() => handleDeactivateUser(activeUser?.id)}
-                        className="flex items-center justify-center gap-2 px-4 py-2 bg-orange-400 hover:bg-orange-500 text-white text-sm font-semibold rounded-lg transition-colors"
-                      >
-                        <svg
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth={2}
-                          className="w-4 h-4"
+                      {activeUser?.status?.toLowerCase() === "active" ? (
+                        <button
+                          onClick={() => handleDeactivateUser(activeUser?.id)}
+                          className="flex items-center justify-center gap-2 px-4 py-2 bg-orange-400 hover:bg-orange-500 text-white text-sm font-semibold rounded-lg transition-colors"
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636"
-                          />
-                        </svg>
-                        Deactivate
-                      </button>
+                          <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                            className="w-4 h-4"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636"
+                            />
+                          </svg>
+                          Deactivate
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => handleActivateUser(activeUser?.id)}
+                          className="flex items-center justify-center gap-2 px-4 py-2 bg-green-500 hover:bg-green-600 text-white text-sm font-semibold rounded-lg transition-colors"
+                        >
+                          <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                            className="w-4 h-4"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                          </svg>
+                          Activate
+                        </button>
+                      )}
                       <button
-                        onClick={() => handleDeleteUser(activeUser?.id)}
+                        onClick={() => handleDeleteClick(activeUser?.id)}
                         className="flex items-center justify-center gap-2 px-4 py-2 bg-red-400 hover:bg-red-500 text-white text-sm font-semibold rounded-lg transition-colors"
                       >
                         <svg
@@ -660,7 +724,38 @@ export default function UsersManagement() {
         )}
       </div>
 
-   
+      {/* ── Delete Modal ── */}
+      {isDeleteModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl p-8 max-w-xl w-full mx-4 shadow-2xl transform transition-all">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Delete User?</h2>
+            <p className="text-gray-500 mb-4 leading-relaxed">
+              This will permanently delete this User. This action cannot be undone.
+            </p>
+            <div className="flex justify-end gap-3 mt-2">
+              <button
+                onClick={() => setIsDeleteModalOpen(false)}
+                disabled={isDeleting}
+                className="px-6 py-2 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmDelete}
+                disabled={isDeleting}
+                className="px-6 py-2 bg-[#FF0000] text-white font-semibold rounded-xl hover:bg-red-600 transition-all hover:scale-105 shadow-lg shadow-red-200 disabled:opacity-75 disabled:cursor-not-allowed disabled:hover:scale-100 flex justify-center items-center gap-2 min-w-[100px]"
+              >
+                {isDeleting ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                    <span>Deleting...</span>
+                  </>
+                ) : "Delete"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

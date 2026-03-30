@@ -4,8 +4,6 @@ import { Edit3, Plus, Search } from "lucide-react";
 import { MdDelete } from "react-icons/md";
 import AddPlantForm from "./AddPlant";
 import plant2 from '../assets/images/plant2.png';
-import plant3 from '../assets/images/plant3.png';
-import plant4 from '../assets/images/plant4.png';
 import { useGetPlantsQuery, useDeletePlantMutation } from "../Api/plantsApi";
 
 function Plant() {
