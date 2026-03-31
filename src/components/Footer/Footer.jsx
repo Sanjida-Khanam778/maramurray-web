@@ -1,5 +1,5 @@
 import footer from '../../assets/footerBg.png';
-import logo from '../../assets/footerLogo.png';
+import logo from '../../assets/logo2.svg';
 import { Link } from 'react-router-dom';
 export default function Footer() {
   const quickLinks = [
@@ -14,7 +14,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* Brand Section */}
           <div className="space-y-8">
-            <img src={logo} alt="" />
+            <img src={logo} className='h-24' alt="" />
             <p className="leading-relaxed max-w-sm font-semibold">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eros ut nunc luctus consectetur vel ac justo.
             </p>
@@ -65,7 +65,7 @@ export default function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="border-t border-gray-300 border-black my-8"></div>
+        <div className="border-t border-black my-8"></div>
 
         {/* Bottom Bar */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm font-semibold">

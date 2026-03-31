@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import logo from "../../assets/logo2.png";
+import logo from "../../assets/logo2.svg";
 import { Link, NavLink, useLocation } from "react-router-dom";
 export default function Navbar() {
   const location = useLocation();
@@ -22,7 +22,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between gap-4">
           {/* Logo */}
           <div>
-            <img src={logo} className="h-10 xl:h-auto" alt="" />
+            <img src={logo} className="h-16" alt="" />
           </div>
 
           {/* Desktop Navigation Links */}

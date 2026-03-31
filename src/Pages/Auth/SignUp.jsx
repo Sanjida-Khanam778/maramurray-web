@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { User, Mail, Lock, Eye, EyeOff, TreeDeciduous } from "lucide-react";
 import toast from "react-hot-toast";
 import bgImage from "../../assets/images/bgImage.png";
-import logo from "../../assets/logo2.png";
+import logo from "../../assets/logo2.svg";
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
@@ -42,8 +42,8 @@ export default function SignUp() {
 
           {/* Header */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-[#1F2D16] rounded-2xl mb-4 shadow-lg">
-              <img src={logo} alt="GardenApp Logo" className="w-10 h-10 object-contain invert" />
+            <div className="inline-flex items-center justify-center bg-[#1F2D16] rounded-2xl mb-4 shadow-lg">
+              <img src={logo} alt="GardenApp Logo" className="object-contain invert" />
             </div>
             <h1 className="text-3xl font-bold text-gray-900 mb-2">Grow With Us</h1>
             <p className="text-gray-600">Create your account to start your gardening journey</p>

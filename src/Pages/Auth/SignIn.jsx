@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Mail, Lock, Eye, EyeOff, TreeDeciduous } from "lucide-react";
 import toast from "react-hot-toast";
 import bgImageUrl from "../../assets/images/bgImage.png";
-import logoUrl from "../../assets/logo2.png";
+import logoUrl from "../../assets/logo2.svg";
 import { useNavigate } from "react-router-dom";
 import { useSignInMutation } from "../../Api/authApi";
 import { useDispatch } from "react-redux";
@@ -52,12 +52,12 @@ export default function SignIn() {
               <img
                 src={logoUrl}
                 alt="GardenApp Logo"
-                className="object-contain"
+                className="object-contain h-20 mb-8"
               />
             </div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            {/* <h1 className="text-3xl font-bold text-gray-900 mb-2">
               Welcome Back
-            </h1>
+            </h1> */}
             <p className="text-gray-600">
               Enter your credentials to access your garden
             </p>
