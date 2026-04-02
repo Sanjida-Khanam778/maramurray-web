@@ -2,6 +2,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import leaf6 from "../../assets/images/leaf6.png";
 import contactBg from "../../assets/images/contact.png";
+import { useSendContactMessageMutation } from "../../Api/contactApi";
 
 const faqs = [
   {
@@ -49,6 +50,7 @@ const contactInfo = [
 
 export default function ContactSection() {
   const [openFaq, setOpenFaq] = useState(null);
+  const [sendContactMessage, { isLoading }] = useSendContactMessageMutation();
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -61,16 +63,36 @@ export default function ContactSection() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    toast.success("Message sent! We'll get back to you shortly.");
-    setForm({
-      firstName: "",
-      lastName: "",
-      email: "",
-      subject: "",
-      message: "",
-    });
+
+    // Validate form
+    if (
+      !form.firstName ||
+      !form.lastName ||
+      !form.email ||
+      !form.subject ||
+      !form.message
+    ) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+
+    try {
+      await sendContactMessage(form).unwrap();
+      toast.success("Message sent! We'll get back to you shortly.");
+      setForm({
+        firstName: "",
+        lastName: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+    } catch (error) {
+      toast.error(
+        error?.data?.message || "Failed to send message. Please try again.",
+      );
+    }
   };
 
   return (
@@ -180,36 +202,34 @@ export default function ContactSection() {
               {/* Submit */}
               <button
                 type="submit"
-                className="w-full flex items-center justify-center gap-2 bg-[#1a3a2a] hover:bg-[#14301f] text-white font-semibold py-3 rounded-xl transition-colors duration-200"
+                disabled={isLoading}
+                className="w-full flex items-center justify-center gap-2 bg-[#1a3a2a] hover:bg-[#14301f] disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-xl transition-colors duration-200"
               >
-                Send Message
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                  className="w-4 h-4"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
-                  />
-                </svg>
+                {isLoading ? "Sending..." : "Send Message"}
+                {!isLoading && (
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    className="w-4 h-4"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
+                    />
+                  </svg>
+                )}
               </button>
             </form>
           </div>
 
           {/* Contact Info */}
           <div className="lg:col-span-2 flex flex-col gap-4 bg-white p-8 rounded-3xl shadow-xl h-44">
-            <h3 className="text-xl text-gray-900 mb-2">
-              Contact Info
-            </h3>
+            <h3 className="text-xl text-gray-900 mb-2">Contact Info</h3>
             {contactInfo.map((item, i) => (
-              <div
-                key={i}
-                className="rounded-2xl flex items-start gap-4"
-              >
+              <div key={i} className="rounded-2xl flex items-start gap-4">
                 <div className="w-10 h-10 rounded-md bg-[#3F6212]/10 text-[#3F6212] flex items-center justify-center flex-shrink-0">
                   {item.icon}
                 </div>
