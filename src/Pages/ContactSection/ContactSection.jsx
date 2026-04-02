@@ -65,7 +65,6 @@ export default function ContactSection() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     // Validate form
     if (
       !form.firstName ||
