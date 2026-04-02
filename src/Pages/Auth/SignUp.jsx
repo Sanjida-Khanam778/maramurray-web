@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { User, Mail, Lock, Eye, EyeOff, TreeDeciduous } from "lucide-react";
 import toast from "react-hot-toast";
 import bgImage from "../../assets/images/bgImage.png";
-import logo from "../../assets/logo2.svg";
+import logo from "../../assets/logo2.png";
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
@@ -39,14 +39,21 @@ export default function SignUp() {
       {/* Register Card */}
       <div className="w-full max-w-md relative z-10">
         <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/20">
-
           {/* Header */}
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center bg-[#1F2D16] rounded-2xl mb-4 shadow-lg">
-              <img src={logo} alt="GardenApp Logo" className="object-contain invert" />
+              <img
+                src={logo}
+                alt="GardenApp Logo"
+                className="object-contain invert"
+              />
             </div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Grow With Us</h1>
-            <p className="text-gray-600">Create your account to start your gardening journey</p>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              Grow With Us
+            </h1>
+            <p className="text-gray-600">
+              Create your account to start your gardening journey
+            </p>
           </div>
 
           {/* Form */}
@@ -64,7 +71,9 @@ export default function SignUp() {
                   placeholder="John Doe"
                   className="w-full pl-10 pr-4 py-3 bg-white/50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-600 transition-all outline-none"
                   value={formData.fullName}
-                  onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, fullName: e.target.value })
+                  }
                 />
               </div>
             </div>
@@ -82,7 +91,9 @@ export default function SignUp() {
                   placeholder="name@example.com"
                   className="w-full pl-10 pr-4 py-3 bg-white/50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-600 transition-all outline-none"
                   value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                 />
               </div>
             </div>
@@ -100,7 +111,9 @@ export default function SignUp() {
                   placeholder="••••••••"
                   className="w-full pl-10 pr-12 py-3 bg-white/50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-600 transition-all outline-none"
                   value={formData.password}
-                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, password: e.target.value })
+                  }
                 />
                 <button
                   type="button"
@@ -118,15 +131,23 @@ export default function SignUp() {
                   type="checkbox"
                   className="w-4 h-4 mt-0.5 rounded border-gray-300 text-green-600 focus:ring-green-500 cursor-pointer"
                   checked={formData.agreeTerms}
-                  onChange={(e) => setFormData({ ...formData, agreeTerms: e.target.checked })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, agreeTerms: e.target.checked })
+                  }
                 />
                 <span className="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">
                   I agree to the{" "}
-                  <Link to="/terms-conditions" className="font-semibold text-green-700 hover:underline">
+                  <Link
+                    to="/terms-conditions"
+                    className="font-semibold text-green-700 hover:underline"
+                  >
                     Terms & Conditions
-                  </Link>
-                  {" "}and{" "}
-                  <Link to="/privacy-policy" className="font-semibold text-green-700 hover:underline">
+                  </Link>{" "}
+                  and{" "}
+                  <Link
+                    to="/privacy-policy"
+                    className="font-semibold text-green-700 hover:underline"
+                  >
                     Privacy Policy
                   </Link>
                 </span>
@@ -145,7 +166,10 @@ export default function SignUp() {
           <div className="mt-8 text-center pb-2">
             <p className="text-sm text-gray-600">
               Already have an account?{" "}
-              <Link to="/signin" className="font-bold text-green-700 hover:text-green-800 transition-colors">
+              <Link
+                to="/signin"
+                className="font-bold text-green-700 hover:text-green-800 transition-colors"
+              >
                 Sign In
               </Link>
             </p>

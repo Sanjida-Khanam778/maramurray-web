@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import logo from "../../assets/logo2.svg";
+import logo from "../../assets/logo2.png";
 import { Link, NavLink, useLocation } from "react-router-dom";
 export default function Navbar() {
   const location = useLocation();
@@ -15,14 +15,16 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className={`w-full z-50 bg-[#E7E9DD]/60 backdrop-blur-md lg:rounded-b-full ${location.pathname === "/"
-      ? ""
-      : "absolute top-0 left-0"}`}>
+    <nav
+      className={`w-full z-50 bg-[#E7E9DD]/60 backdrop-blur-md lg:rounded-b-full ${
+        location.pathname === "/" ? "" : "absolute top-0 left-0"
+      }`}
+    >
       <div className="w-11/12 mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex items-center justify-between gap-4">
           {/* Logo */}
           <div>
-            <img src={logo} className="h-16" alt="" />
+            <img src={logo} alt="" />
           </div>
 
           {/* Desktop Navigation Links */}
@@ -32,7 +34,10 @@ export default function Navbar() {
                 key={link.label}
                 to={link.href}
                 className={({ isActive }) =>
-                  `font-bold transition-colors ${isActive ? "text-green-600" : "text-gray-700 hover:text-green-600"
+                  `font-bold transition-colors ${
+                    isActive
+                      ? "text-green-600"
+                      : "text-gray-700 hover:text-green-600"
                   }`
                 }
               >
@@ -43,11 +48,8 @@ export default function Navbar() {
 
           {/* Search Bar and Dashboard Button */}
           <div className="flex items-center gap-2 sm:gap-4">
-
-
             {/* Dashboard Button */}
             <button className="flex items-center gap-2 bg-[#1D2915] text-white font-medium px-4 sm:px-12 py-4 rounded-full transition-colors whitespace-nowrap">
-
               <span className="hidden sm:inline">Download Now</span>
             </button>
 
@@ -65,8 +67,6 @@ export default function Navbar() {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="lg:hidden mt-4 pb-4 border-t border-gray-200 pt-4">
-
-
             {/* Mobile Navigation Links */}
             <div className="flex flex-col gap-3">
               {navLinks.map((link) => (
@@ -74,7 +74,10 @@ export default function Navbar() {
                   key={link.label}
                   to={link.href}
                   className={({ isActive }) =>
-                    `font-medium transition-colors py-2 px-2 ${isActive ? "text-green-600" : "text-gray-700 hover:text-green-600"
+                    `font-medium transition-colors py-2 px-2 ${
+                      isActive
+                        ? "text-green-600"
+                        : "text-gray-700 hover:text-green-600"
                     }`
                   }
                   onClick={() => setMobileMenuOpen(false)}

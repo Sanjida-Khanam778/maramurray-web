@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Mail, Lock, Eye, EyeOff, TreeDeciduous } from "lucide-react";
 import toast from "react-hot-toast";
 import bgImageUrl from "../../assets/images/bgImage.png";
-import logoUrl from "../../assets/logo2.svg";
+import logoUrl from "../../assets/footerLogo.png";
 import { useNavigate } from "react-router-dom";
 import { useSignInMutation } from "../../Api/authApi";
 import { useDispatch } from "react-redux";
@@ -52,7 +52,7 @@ export default function SignIn() {
               <img
                 src={logoUrl}
                 alt="GardenApp Logo"
-                className="object-contain h-20 mb-8"
+                className="object-contain mb-4"
               />
             </div>
             {/* <h1 className="text-3xl font-bold text-gray-900 mb-2">

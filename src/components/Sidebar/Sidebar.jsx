@@ -3,7 +3,7 @@ import "./Sidebar.css";
 import { LuCircleUserRound, LuDumbbell, LuSettings } from "react-icons/lu";
 import { LogOut } from "lucide-react";
 import { TbDiamond } from "react-icons/tb";
-import logo from "../../assets/logo2.svg";
+import logo from "../../assets/footerLogo.png";
 import { RxDashboard } from "react-icons/rx";
 export default function Sidebar() {
   const handleLogout = () => {};
@@ -12,7 +12,7 @@ export default function Sidebar() {
     <div className="bg-sidebar text-white h-screen sticky left-0 z-20 flex flex-col justify-between w-48 md:w-64 xl:w-72">
       {/* Ober Logo */}
       <div className="mt-12 flex justify-center">
-        <img src={logo} className="h-20" alt="" />
+        <img src={logo} alt="" />
       </div>
 
       <nav className="flex-1 font-nunito mt-10">

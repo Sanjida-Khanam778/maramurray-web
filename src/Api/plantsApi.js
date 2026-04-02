@@ -30,7 +30,15 @@ export const plantsApi = api.injectEndpoints({
       }),
       invalidatesTags: ["plants"],
     }),
+    editPlant: builder.mutation({
+      query: ({ id, formData }) => ({
+        url: `/plants/plant/${id}/edit/`,
+        method: "PATCH",
+        body: formData,
+      }),
+      invalidatesTags: ["plants"],
+    }),
   }),
 });
 
-export const { useGetPlantsQuery, useGetPlantDetailQuery, useAddPlantMutation, useDeletePlantMutation } = plantsApi;
+export const { useGetPlantsQuery, useGetPlantDetailQuery, useAddPlantMutation, useDeletePlantMutation, useEditPlantMutation } = plantsApi;

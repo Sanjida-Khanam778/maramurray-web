@@ -60,12 +60,11 @@ export default function PrivacyPolicy() {
       </div>
 
       <div className="relative z-20 mt-10 px-4 sm:px-6 lg:px-8">
-        <img src={leaf7} className="absolute left-0 -top-20" alt="Leaf" />
-        <img
-          src={bg2}
-          className="absolute right-0 top-1/2 -translate-y-1/2"
-          alt="Leaf"
-        />
+        <img src={leaf7} className="absolute left-0 top-0 z-10 pointer-events-none" alt="Leaf" />
+        <img src={bg2} className="absolute right-0 top-[20%] z-10 pointer-events-none" alt="Leaf" />
+        <img src={leaf7} className="absolute left-0 top-[45%] z-10 pointer-events-none" alt="Leaf" />
+        <img src={bg2} className="absolute right-0 top-[65%] z-10 pointer-events-none" alt="Leaf" />
+        <img src={leaf7} className="absolute left-0 top-[85%] z-10 pointer-events-none" alt="Leaf" />
         <div className="max-w-7xl mx-auto p-8 sm:p-10">
           <div
             className="text-sm text-gray-700 leading-loose ck-content"
