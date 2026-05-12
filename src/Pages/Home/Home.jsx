@@ -11,22 +11,27 @@ import GetInspiredSection from '../../components/GetInspiredSection/GetInspiredS
 import TestimonialsSection from '../../components/TestimonialsSection/TestimonialsSection'
 import VideoTutorialSection from '../../components/VideoTutorialSection/VideoTutorialSection'
 
+let hasSeenPreloader = false;
+
 export default function Home() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!hasSeenPreloader);
 
   useEffect(() => {
-    // Hide preloader after 2.5 seconds
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 4500);
-    return () => clearTimeout(timer);
-  }, []);
+    if (loading) {
+      // Hide preloader after 4.5 seconds
+      const timer = setTimeout(() => {
+        setLoading(false);
+        hasSeenPreloader = true;
+      }, 4500);
+      return () => clearTimeout(timer);
+    }
+  }, [loading]);
 
   if (loading) {
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#F8F8F8]">
+      <div className="fixed inset-0 z-50 flex items-center justify-center">
         <div className="w-screen flex items-center justify-center">
-          <Lottie animationData={preloaderAnimation} loop={true} className="w-full h-full object-cover" />
+          <Lottie animationData={preloaderAnimation} loop={true} className="w-screen" />
         </div>
       </div>
     );

@@ -24,7 +24,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between gap-4">
           {/* Logo */}
           <div>
-            <img src={logo} alt="" />
+            <img className="h-16" src={logo} alt="" />
           </div>
 
           {/* Desktop Navigation Links */}
