@@ -101,16 +101,16 @@ export default function ContactSection() {
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${contactBg})` }}
         />{" "}
-        <div className="absolute inset-0 bg-black/20" />
+        <div className="absolute inset-0 bg-black/0" />
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4 sm:px-6 lg:px-8">
-          <p className="font-semibold uppercase text-white bg-black/20 py-2 px-5 inline rounded-full mb-3">
+          <p className="font-semibold uppercase bg-black/20 py-2 px-5 inline rounded-full mb-3">
             Support &amp; Inquiries
           </p>
-          <h2 className="text-4xl xl:text-6xl mt-4 font-bold mb-4 text-white">
+          <h2 className="text-4xl xl:text-6xl mt-4 font-bold mb-4">
             Get in Touch
           </h2>
-          <p className="max-w-2xl mx-auto font-semibold xl:text-xl leading-relaxed text-white">
-            Have questions about your garden design? Need help with the app?
+          <p className="max-w-xl mx-auto font-semibold xl:text-xl leading-relaxed">
+            Have questions about your garden design? Need help with the app? <br />
             We're here to help you grow your dream space.
           </p>
         </div>

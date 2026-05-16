@@ -29,9 +29,9 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center">
-        <div className="w-screen flex items-center justify-center">
-          <Lottie animationData={preloaderAnimation} loop={true} className="w-screen" />
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-white">
+        <div className="w-full max-w-[720px] flex items-center justify-center px-4">
+          <Lottie animationData={preloaderAnimation} loop={true} className="w-full h-auto" />
         </div>
       </div>
     );

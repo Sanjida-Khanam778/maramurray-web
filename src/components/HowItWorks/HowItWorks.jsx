@@ -31,10 +31,7 @@ export default function HowItWorks() {
       <div className="max-w-6xl mx-auto px-4 relative z-10">
         <div className="text-center mb-24">
           <h2 className="text-5xl md:text-7xl mb-6">
-            How it{" "}
-            <span className="bg-gradient-to-b from-[#FFC973] to-[#A85013] bg-clip-text text-transparent">
-              Works
-            </span>
+            How it Works
           </h2>
           <p className="text-[#A0A0A0] text-xl max-w-3xl mx-auto font-medium">
             From concept to design, we guide you through every step of gardening
@@ -52,8 +49,6 @@ export default function HowItWorks() {
                 <div
                   className={`bg-gradient-to-br text-right from-[#71B25E]/70 to-[#1D2915] rounded-[30px] p-8 md:p-10 shadow-2xl relative min-h-[160px] flex flex-col justify-center`}
                 >
-             
-
                   <h3 className="text-3xl font-medium text-white mb-3">
                     Upload
                   </h3>
@@ -105,7 +100,7 @@ export default function HowItWorks() {
                   </h3>
                   <p className="text-white/80 text-lg leading-relaxed">
                     Use the measuring tool to set the boarders of your
-                    garden{" "}
+                    garden
                   </p>
                 </div>
               </div>
@@ -114,10 +109,8 @@ export default function HowItWorks() {
               {/* Content Box */}
               <div className="flex-1 px-4 md:px-12">
                 <div
-                  className={`bg-gradient-to-br from-[#71B25E]/70 to-[#1D2915] rounded-[30px] p-8 md:p-10 shadow-2xl relative min-h-[160px] flex flex-col justify-center`}
+                  className={`bg-gradient-to-br text-right from-[#71B25E]/70 to-[#1D2915] rounded-[30px] p-8 md:p-10 shadow-2xl relative min-h-[160px] flex flex-col justify-center`}
                 >
-           
-
                   <h3 className="text-3xl font-medium text-white mb-3">
                     Select
                   </h3>
@@ -126,7 +119,6 @@ export default function HowItWorks() {
                   </p>
                 </div>
               </div>
-
               {/* Center Icon */}
               <div className="relative">
                 <div className="w-24 md:w-32 flex justify-center relative">
@@ -161,7 +153,7 @@ export default function HowItWorks() {
               {/* Content Box */}
               <div className="flex-1 px-4 md:px-12">
                 <div
-                  className={`bg-gradient-to-br from-[#71B25E]/70 to-[#1D2915] rounded-[30px] p-8 md:p-10 shadow-2xl relative min-h-[160px] flex flex-col justify-center`}
+                  className={`bg-gradient-to-br text-right from-[#71B25E]/70 to-[#1D2915] rounded-[30px] p-8 md:p-10 shadow-2xl relative min-h-[160px] flex flex-col justify-center`}
                 >
                 
 
@@ -180,7 +172,7 @@ export default function HowItWorks() {
               {/* Content Box */}
               <div className="flex-1 px-4 md:px-12">
                 <div
-                  className={`bg-gradient-to-br from-[#71B25E]/70 to-[#1D2915] rounded-[30px] p-8 md:p-10 shadow-2xl relative min-h-[160px] flex flex-col justify-center`}
+                  className={`bg-gradient-to-br text-right from-[#71B25E]/70 to-[#1D2915] rounded-[30px] p-8 md:p-10 shadow-2xl relative min-h-[160px] flex flex-col justify-center`}
                 >
                
 

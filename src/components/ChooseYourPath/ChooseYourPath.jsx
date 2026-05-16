@@ -82,7 +82,7 @@ export default function ChooseYourPath() {
                                             <div className="w-6 h-6 rounded-full bg-[#DCFCE7] flex items-center justify-center">
                                                 <div className="w-2 h-2 rounded-full bg-[#00A63E]"></div>
                                             </div>
-                                            <span className="text-slate-700 text-sm md:text-base">
+                                            <span className="text-[#016630] text-sm md:text-base">
                                                 {feature}
                                             </span>
                                         </li>
